@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         title: Text(
           sharedPreferences!.getString("name")!,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
@@ -32,9 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
             primary: Colors.amber,
           ),
           onPressed: () {
-            firebaseAuth.signOut();
-            Navigator.push(
-                context, MaterialPageRoute(builder: (c) => const AuthScreen()));
+            firebaseAuth.signOut().then((value) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (c) => const AuthScreen()));
+            });
           },
         ),
       ),
