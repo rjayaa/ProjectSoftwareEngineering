@@ -13,6 +13,8 @@ import 'package:tenant_seller/widgets/error_dialog.dart';
 import 'package:tenant_seller/widgets/loading_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 
+import '../global/global.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -108,7 +110,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   void authenticateSellerAndSignUp() async {
     User? currentUser;
-    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
     await firebaseAuth
         .createUserWithEmailAndPassword(
@@ -150,12 +151,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     // save data to local app
-    SharedPreferences? sharedPreferences =
-        await SharedPreferences.getInstance();
-    await sharedPreferences.setString("uid", currentUser.uid);
-    await sharedPreferences.setString("email", currentUser.email.toString());
-    await sharedPreferences.setString("name", nameController.text.trim());
-    await sharedPreferences.setString("photoUrl", sellerImageUrl);
+    sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences!.setString("uid", currentUser.uid);
+    await sharedPreferences!.setString("email", currentUser.email.toString());
+    await sharedPreferences!.setString("name", nameController.text.trim());
+    await sharedPreferences!.setString("photoUrl", sellerImageUrl);
   }
 
   @override
