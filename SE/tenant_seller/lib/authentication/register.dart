@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tenant_seller/mainScreens/home_screen.dart';
 import 'package:tenant_seller/widgets/custom_text_field.dart';
 import 'package:tenant_seller/widgets/error_dialog.dart';
@@ -78,6 +79,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             sellerImageUrl = url;
 
             //save information to firestore
+
+            authenticateSellerAndSignUp();
           });
         } else {
           showDialog(
@@ -114,6 +117,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     )
         .then((auth) {
       currentUser = auth.user;
+    }).catchError((error) {
+      Navigator.pop(context);
+      showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorDialog(
+              message: error.message,
+            );
+          });
     });
 
     if (currentUser != null) {
@@ -138,6 +150,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
 
     // save data to local app
+    SharedPreferences? sharedPreferences =
+        await SharedPreferences.getInstance();
+    await sharedPreferences.setString("uid", currentUser.uid);
+    await sharedPreferences.setString("email", currentUser.email.toString());
+    await sharedPreferences.setString("name", nameController.text.trim());
+    await sharedPreferences.setString("photoUrl", sellerImageUrl);
   }
 
   @override
