@@ -17,7 +17,7 @@ class _AuthScreenState extends State<AuthScreen> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 60,
-          backgroundColor: Color(0xff1E1E1E),
+          backgroundColor: const Color(0xff1E1E1E),
           automaticallyImplyLeading: false,
           title: RichText(
             text: const TextSpan(
@@ -55,7 +55,7 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         ),
         body: Container(
-          color: Color.fromARGB(237, 30, 30, 30),
+          color: const Color.fromARGB(237, 30, 30, 30),
           child: const TabBarView(
             children: [
               LoginScreen(),

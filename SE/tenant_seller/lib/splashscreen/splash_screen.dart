@@ -16,9 +16,11 @@ class _MySplashScreenState extends State<MySplashScreen> {
   startTimer() {
     Timer(const Duration(seconds: 1), () async {
       if (firebaseAuth.currentUser != null) {
+        // kalo seller udah login langsung direct ke homescreen
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const HomeScreen()));
-      } else {
+      } // kalo seller belom login, harus ke authscreen terlebih dahulu
+      else {
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const AuthScreen()));
       }
