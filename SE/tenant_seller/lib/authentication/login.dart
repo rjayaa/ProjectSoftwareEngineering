@@ -9,7 +9,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -20,8 +20,22 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontFamily: "Poppins",
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             Form(
-              key: _formkey,
+              key: _formKey,
               child: Column(
                 children: [
                   CustomTextField(
@@ -39,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 15,
             ),
             ElevatedButton(

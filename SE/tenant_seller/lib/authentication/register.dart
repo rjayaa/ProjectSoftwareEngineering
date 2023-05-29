@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tenant_seller/widgets/custom_text_field.dart';
+import 'package:tenant_seller/widgets/error_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -29,6 +30,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       imageXFile;
     });
+  }
+
+// validasi input
+  Future<void> formValidation() async {
+    if (imageXFile == null) {
+      showDialog(
+        context: context,
+        builder: (c) {
+          return ErrorDialog(
+            message: "Please select an image.",
+          );
+        },
+      );
+    } else {
+      if (passwordController.text == confirmPasswordController.text) {
+        if (confirmPasswordController.text.isNotEmpty &&
+            emailController.text.isNotEmpty &&
+            nameController.text.isNotEmpty &&
+            phoneController.text.isNotEmpty) {
+          // start uploading the image to database
+        } else {
+          showDialog(
+            context: context,
+            builder: (c) {
+              return ErrorDialog(
+                message:
+                    "Please write the complete required info for Registration. ",
+              );
+            },
+          );
+        }
+      } else {
+        showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorDialog(
+              message: "Password do not match",
+            );
+          },
+        );
+      }
+    }
   }
 
   @override
@@ -116,7 +159,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 primary: Color(0xffFC7115),
                 padding: EdgeInsets.symmetric(horizontal: 80, vertical: 20),
               ),
-              onPressed: () => print("clicked"),
+              onPressed: () {
+                formValidation();
+              },
             ),
           ],
         ),
