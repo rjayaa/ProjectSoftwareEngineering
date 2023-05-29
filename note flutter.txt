@@ -1,0 +1,8 @@
+Stateless vs Stateful :
+Stateless - > aplikasi yang tidak membutuhkan perubahan state / keadaan
+
+Stateful -> Aplikasi yang membutuhkan perubahan state
+
+State Management -> tidak akan merender ulang bagian headbar
+dapat menggunakan stateless rasa stateful, karena kita bisa mengubah
+widget mana saja yang mau diubah
