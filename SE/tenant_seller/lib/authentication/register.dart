@@ -1,10 +1,16 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tenant_seller/mainScreens/home_screen.dart';
 import 'package:tenant_seller/widgets/custom_text_field.dart';
 import 'package:tenant_seller/widgets/error_dialog.dart';
+import 'package:tenant_seller/widgets/loading_dialog.dart';
+import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -23,6 +29,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
+
+  String sellerImageUrl = "";
 
 // method upload image di ke circle avatar
   Future<void> _getImage() async {
@@ -50,6 +58,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
             nameController.text.isNotEmpty &&
             phoneController.text.isNotEmpty) {
           // start uploading the image to database
+          showDialog(
+              context: context,
+              builder: (c) {
+                return LoadingDialog(
+                  message: "Registering Account",
+                );
+              });
+          String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+          fStorage.Reference reference = fStorage.FirebaseStorage.instance
+              .ref()
+              .child("sellers")
+              .child(fileName);
+          fStorage.UploadTask uploadTask =
+              reference.putFile(File(imageXFile!.path));
+          fStorage.TaskSnapshot taskSnapshot =
+              await uploadTask.whenComplete(() {});
+          await taskSnapshot.ref.getDownloadURL().then((url) {
+            sellerImageUrl = url;
+
+            //save information to firestore
+          });
         } else {
           showDialog(
             context: context,
@@ -72,6 +101,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
         );
       }
     }
+  }
+
+  void authenticateSellerAndSignUp() async {
+    User? currentUser;
+    final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+    await firebaseAuth
+        .createUserWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+    )
+        .then((auth) {
+      currentUser = auth.user;
+    });
+
+    if (currentUser != null) {
+      saveDataToFirestore(currentUser!).then((value) {
+        Navigator.pop(context);
+        // send the user to homePage
+        Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
+        Navigator.pushReplacement(context, newRoute);
+      });
+    }
+  }
+
+  Future saveDataToFirestore(User currentUser) async {
+    FirebaseFirestore.instance.collection("sellers").doc(currentUser.uid).set({
+      "sellersUID": currentUser.uid,
+      "sellerEmail": currentUser.email,
+      "sellerName": nameController.text.trim(),
+      "sellerAvatarUrl": sellerImageUrl,
+      "phone": phoneController.text.trim(),
+      "status": "approved",
+      "earnings": 0.0,
+    });
+
+    // save data to local app
   }
 
   @override
