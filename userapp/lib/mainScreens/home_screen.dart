@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/widgets/my_drawer.dart';
 
 import '../authentication/auth_screen.dart';
 import '../global/global.dart';
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 60,
         backgroundColor: Color(0xff272727),
         centerTitle: true,
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text(
           sharedPreferences!.getString("name")!,
           style: const TextStyle(
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      drawer: MyDrawer(),
       body: Center(
         child: ElevatedButton(
           child: Text("Logout"),
