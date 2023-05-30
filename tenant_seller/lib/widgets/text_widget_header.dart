@@ -23,7 +23,7 @@ class TextWidgetHeader extends SliverPersistentHeaderDelegate {
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: "Poppins",
-              fontSize: 30,
+              fontSize: 20,
               letterSpacing: 2,
               color: Colors.red,
             ),

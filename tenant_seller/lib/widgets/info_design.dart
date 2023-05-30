@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tenant_seller/mainScreens/itemsScreen.dart';
 import 'package:tenant_seller/model/menus.dart';
 
 class InfoDesignWidget extends StatefulWidget {
@@ -14,7 +15,13 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.red,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (c) => ItemsScreen(model: widget.model)));
+      },
+      splashColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
@@ -36,24 +43,21 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
                 height: 10.0,
               ),
               Text(
-                widget.model!.menuInfo!,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                  fontFamily: "Roboto",
-                ),
-              ),
-              Divider(
-                height: 1,
-                thickness: 3,
-                color: Colors.grey[300],
-              ),
-              Text(
                 widget.model!.menuTitle!,
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 20,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+              Text(
+                widget.model!.menuInfo!,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
                   fontFamily: "Roboto",
+                  fontWeight: FontWeight.normal,
                 ),
               ),
               Divider(

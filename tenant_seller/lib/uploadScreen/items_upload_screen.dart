@@ -7,21 +7,24 @@ import 'package:tenant_seller/global/global.dart';
 import 'package:tenant_seller/mainScreens/home_screen.dart';
 import 'package:tenant_seller/widgets/progress_bar.dart';
 import 'package:firebase_storage/firebase_storage.dart' as storageRef;
+import '../model/menus.dart';
 import '../widgets/error_dialog.dart';
 
-class MenusUploadScreen extends StatefulWidget {
-  const MenusUploadScreen({super.key});
+class ItemsUploadScreen extends StatefulWidget {
+  final Menus? model;
+  ItemsUploadScreen({this.model});
 
   @override
-  State<MenusUploadScreen> createState() => _MenusUploadScreenState();
+  State<ItemsUploadScreen> createState() => _ItemsUploadScreenState();
 }
 
-class _MenusUploadScreenState extends State<MenusUploadScreen> {
+class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
   TextEditingController shortInfoController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   bool uploading = false;
   String uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
@@ -33,7 +36,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         backgroundColor: Color(0xff272727),
         centerTitle: true,
         title: Text(
-          "Add New Menu",
+          "Add New Item",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -159,14 +162,14 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     });
   }
 
-  menuUploadFormScreen() {
+  ItemsUploadFormScreen() {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
         backgroundColor: Color(0xff272727),
         centerTitle: true,
         title: Text(
-          "Uploading New Menu",
+          "Uploading New Item",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
@@ -267,6 +270,29 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
             color: Colors.black,
             thickness: 2,
           ),
+          ListTile(
+            leading: const Icon(
+              Icons.camera,
+              color: Color(0xffFC7115),
+            ),
+            title: Container(
+              width: 250,
+              child: TextField(
+                keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.black),
+                controller: priceController,
+                decoration: InputDecoration(
+                  hintText: "Harga...",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.black,
+            thickness: 2,
+          ),
         ],
       ),
     );
@@ -276,6 +302,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     setState(() {
       shortInfoController.clear();
       titleController.clear();
+      priceController.clear();
       imageXFile = null;
     });
   }
@@ -283,7 +310,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   validateUploadForm() async {
     if (imageXFile != null) {
       if (shortInfoController.text.isNotEmpty &&
-          titleController.text.isNotEmpty) {
+          titleController.text.isNotEmpty &&
+          priceController.text.isNotEmpty) {
         setState(() {
           uploading = true;
         });
@@ -315,7 +343,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
 
   uploadImage(mImageFile) async {
     storageRef.Reference reference =
-        storageRef.FirebaseStorage.instance.ref().child("menus");
+        storageRef.FirebaseStorage.instance.ref().child("items");
 
     storageRef.UploadTask uploadTask =
         reference.child(uniqueIdName + ".jpg").putFile(mImageFile);
@@ -331,27 +359,46 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     final ref = FirebaseFirestore.instance
         .collection("sellers")
         .doc(sharedPreferences!.getString("uid"))
-        .collection("menus");
+        .collection("menus")
+        .doc(widget.model!.menuID)
+        .collection("items");
 
     ref.doc(uniqueIdName).set({
+      "itemID": uniqueIdName,
       "menusID": uniqueIdName,
       "sellerUID": sharedPreferences!.getString("uid"),
-      "menuInfo": shortInfoController.text.toString(),
-      "menuTitle": titleController.text.toString(),
+      "sellerName": sharedPreferences!.getString("name"),
+      "shortInfo": shortInfoController.text.toString(),
+      "price": int.parse(priceController.text),
+      "title": titleController.text.toString(),
       "publishedDate": DateTime.now(),
       "status": "available",
       "thumbnailUrl": downloadUrl,
-    });
-
-    clearMenusUploadForm();
-    setState(() {
-      uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
-      uploading = false;
+    }).then((value) {
+      final itemsRef = FirebaseFirestore.instance.collection("items");
+      itemsRef.doc(uniqueIdName).set({
+        "itemID": uniqueIdName,
+        "menusID": uniqueIdName,
+        "sellerUID": sharedPreferences!.getString("uid"),
+        "sellerName": sharedPreferences!.getString("name"),
+        "shortInfo": shortInfoController.text.toString(),
+        "price": int.parse(priceController.text),
+        "title": titleController.text.toString(),
+        "publishedDate": DateTime.now(),
+        "status": "available",
+        "thumbnailUrl": downloadUrl,
+      });
+    }).then((value) {
+      clearMenusUploadForm();
+      setState(() {
+        uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
+        uploading = false;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return imageXFile == null ? defaultScreen() : menuUploadFormScreen();
+    return imageXFile == null ? defaultScreen() : ItemsUploadFormScreen();
   }
 }
