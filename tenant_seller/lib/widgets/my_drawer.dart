@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/global/global.dart';
+import 'package:tenant_seller/authentication/auth_screen.dart';
+import '../global/global.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -21,7 +22,8 @@ class MyDrawer extends StatelessWidget {
                       height: 110,
                       width: 110,
                       child: CircleAvatar(
-                        backgroundImage: AssetImage("images/user.png"),
+                        backgroundImage: NetworkImage(
+                            sharedPreferences!.getString("photoUrl")!),
                       ),
                     ),
                   ),
@@ -61,11 +63,25 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
+                    Icons.monetization_on,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    "My Earnings",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: Icon(
                     Icons.reorder,
                     color: Colors.black,
                   ),
                   title: const Text(
-                    "My Orders",
+                    "New orders",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "Roboto",
@@ -75,25 +91,11 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   leading: Icon(
-                    Icons.access_time,
+                    Icons.local_shipping,
                     color: Colors.black,
                   ),
                   title: const Text(
-                    "History",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: "Roboto",
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  title: const Text(
-                    "Search",
+                    "History - Orders",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: "Roboto",
@@ -115,13 +117,12 @@ class MyDrawer extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                     firebaseAuth.signOut().then((value) {
+                    firebaseAuth.signOut().then((value) {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (c) => const AuthScreen()));
-                  },
-                     ),
+                    });
                   },
                 ),
               ],
