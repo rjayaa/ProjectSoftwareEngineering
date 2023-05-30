@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 
 import '../global/global.dart';
+import '../mainScreens/home_screen.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/error_dialog.dart';
 import '../widgets/loading_dialog.dart';
@@ -121,8 +122,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         await saveDataToFirestore(currentUser);
         Navigator.pop(context);
         // send the user to homePage
-        // Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
-        // Navigator.pushReplacement(context, newRoute);
+        Route newRoute = MaterialPageRoute(builder: (c) => HomeScreen());
+        Navigator.pushReplacement(context, newRoute);
       }
     } catch (error) {
       String errorMessage = error.toString();

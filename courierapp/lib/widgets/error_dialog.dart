@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
 class ErrorDialog extends StatelessWidget {
-  final String message;
-
-  ErrorDialog({required this.message});
+  final String? message;
+  ErrorDialog({this.message});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Text(message),
+      key: key,
+      content: Text(message!),
       actions: [
         ElevatedButton(
           child: const Center(
-            child: Text("OK"),
+            child: Text(
+              "OK",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
           style: ElevatedButton.styleFrom(
-            primary: Colors.red,
+            primary: Color(0xffFC7115),
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -25,29 +30,3 @@ class ErrorDialog extends StatelessWidget {
     );
   }
 }
-
-// class ErrorDialog extends StatelessWidget {
-//   final String? message;
-//   ErrorDialog({this.message});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AlertDialog(
-//       key: key,
-//       content: Text(message!),
-//       actions: [
-//         ElevatedButton(
-//           child: const Center(
-//             child: Text("OK"),
-//           ),
-//           style: ElevatedButton.styleFrom(
-//             primary: Colors.red,
-//           ),
-//           onPressed: () {
-//             Navigator.pop(context);
-//           },
-//         ),
-//       ],
-//     );
-//   }
-// }

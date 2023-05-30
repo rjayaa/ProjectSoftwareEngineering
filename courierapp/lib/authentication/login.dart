@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../global/global.dart';
+import '../mainScreens/home_screen.dart';
 import '../widgets/custom_text_field.dart';
 import '../widgets/error_dialog.dart';
 import '../widgets/loading_dialog.dart';
@@ -64,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (currentUser != null) {
       readDataAndSetDataLocally(currentUser!).then((value) {
         Navigator.pop(context);
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
       });
     }
   }
@@ -78,11 +79,11 @@ class _LoginScreenState extends State<LoginScreen> {
         .then((snapshot) async {
       await sharedPreferences!.setString("uid", currentUser.uid);
       await sharedPreferences!
-          .setString("email", snapshot.data()!["sellerEmail"]);
+          .setString("email", snapshot.data()!["courierEmail"]);
       await sharedPreferences!
-          .setString("name", snapshot.data()!["sellerName"]);
+          .setString("name", snapshot.data()!["courierName"]);
       await sharedPreferences!
-          .setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
+          .setString("photoUrl", snapshot.data()!["courierAvatarUrl"]);
     });
   }
 

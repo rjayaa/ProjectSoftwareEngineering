@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../authentication/auth_screen.dart';
 import '../global/global.dart';
+import '../mainScreens/home_screen.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
@@ -16,10 +17,10 @@ class _MySplashScreenState extends State<MySplashScreen> {
   startTimer() {
     Timer(const Duration(seconds: 1), () async {
       if (firebaseAuth.currentUser != null) {
-        // kalo seller udah login langsung direct ke homescreen
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (c) => const HomeScreen()));
-      } // kalo seller belom login, harus ke authscreen terlebih dahulu
+        // kalo courier udah login langsung direct ke homescreen
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      } // kalo courier belom login, harus ke authscreen terlebih dahulu
       else {
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const AuthScreen()));
