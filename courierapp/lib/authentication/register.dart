@@ -7,13 +7,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tenant_seller/mainScreens/home_screen.dart';
-import 'package:tenant_seller/widgets/custom_text_field.dart';
-import 'package:tenant_seller/widgets/error_dialog.dart';
-import 'package:tenant_seller/widgets/loading_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fStorage;
 
 import '../global/global.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/error_dialog.dart';
+import '../widgets/loading_dialog.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -71,7 +70,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           String fileName = DateTime.now().millisecondsSinceEpoch.toString();
           fStorage.Reference reference = fStorage.FirebaseStorage.instance
               .ref()
-              .child("sellers")
+              .child("couriers")
               .child(fileName);
           fStorage.UploadTask uploadTask =
               reference.putFile(File(imageXFile!.path));
@@ -143,11 +142,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future saveDataToFirestore(User currentUser) async {
-    FirebaseFirestore.instance.collection("sellers").doc(currentUser.uid).set({
-      "sellersUID": currentUser.uid,
-      "sellerEmail": currentUser.email,
-      "sellerName": nameController.text.trim(),
-      "sellerAvatarUrl": sellerImageUrl,
+    FirebaseFirestore.instance.collection("couriers").doc(currentUser.uid).set({
+      "courierUID": currentUser.uid,
+      "courierEmail": currentUser.email,
+      "courierName": nameController.text.trim(),
+      "courierAvatarUrl": sellerImageUrl,
       "phone": phoneController.text.trim(),
       "status": "approved",
       "earnings": 0.0,
@@ -243,8 +242,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Color(0xffFC7115),
-                padding: EdgeInsets.symmetric(horizontal: 80, vertical: 20),
+                primary: const Color(0xffFC7115),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 80, vertical: 20),
               ),
               onPressed: () {
                 formValidation();
