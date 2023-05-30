@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tenant_seller/mainScreens/home_screen.dart';
@@ -14,6 +17,9 @@ class MenusUploadScreen extends StatefulWidget {
 class _MenusUploadScreenState extends State<MenusUploadScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
+
+  TextEditingController shortInfoController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
 
   defaultScreen() {
     return Scaffold(
@@ -57,8 +63,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
               ),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Color(0xffFC7115)),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                    Color(0xffFC7115),
+                  ),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20))),
@@ -90,27 +97,30 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
             backgroundColor: Colors.white,
             title: const Text(
               "Menu Image",
-              style: TextStyle(color: Color(0xffFC7115)),
+              style: TextStyle(
+                  color: Colors.black, fontFamily: "Poppins", fontSize: 20),
             ),
             children: [
               SimpleDialogOption(
                 child: Text(
                   "Capture with Camera",
-                  style: TextStyle(color: Color(0xffFC7115)),
+                  style:
+                      TextStyle(color: Color(0xffFC7115), fontFamily: "Roboto"),
                 ),
                 onPressed: captureImageWithCamera,
               ),
               SimpleDialogOption(
                 child: Text(
                   "Select with Gallery",
-                  style: TextStyle(color: Color(0xffFC7115)),
+                  style:
+                      TextStyle(color: Color(0xffFC7115), fontFamily: "Roboto"),
                 ),
                 onPressed: pickImageFromGallery,
               ),
               SimpleDialogOption(
                 child: Text(
                   "Cancel",
-                  style: TextStyle(color: Color(0xffFC7115)),
+                  style: TextStyle(color: Colors.red, fontFamily: "Roboto"),
                 ),
                 onPressed: () => Navigator.pop(context),
               ),
@@ -135,14 +145,134 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   pickImageFromGallery() async {
     Navigator.pop(context);
     imageXFile = await _picker.pickImage(
-      source: ImageSource.camera,
+      source: ImageSource.gallery,
       maxHeight: 720,
       maxWidth: 1280,
     );
   }
 
+  menuUploadFormScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 60,
+        backgroundColor: Color(0xff272727),
+        centerTitle: true,
+        title: Text(
+          "Uploading New Menu",
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontFamily: "Poppins",
+          ),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            clearMenusUploadForm();
+          },
+        ),
+        actions: [
+          TextButton(
+            child: const Text(
+              "Add",
+              style: TextStyle(
+                color: Color(0xffFC7115),
+                fontFamily: "Poppins",
+                fontSize: 16,
+              ),
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),
+      body: ListView(
+        children: [
+          Container(
+            height: 230,
+            width: MediaQuery.of(context).size.width * 0.8, // 80%
+            child: Center(
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    image: FileImage(File(imageXFile!.path)),
+                    fit: BoxFit.cover,
+                  )),
+                ),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.black,
+            thickness: 2,
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.perm_device_information,
+              color: Color(0xffFC7115),
+            ),
+            title: Container(
+              width: 250,
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                controller: shortInfoController,
+                decoration: InputDecoration(
+                  hintText: "Nama Makanan / Minuman",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.black,
+            thickness: 2,
+          ),
+          ListTile(
+            leading: const Icon(
+              Icons.title,
+              color: Color(0xffFC7115),
+            ),
+            title: Container(
+              width: 250,
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                controller: titleController,
+                decoration: InputDecoration(
+                  hintText: "Deskripsi..",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+          ),
+          const Divider(
+            color: Colors.black,
+            thickness: 2,
+          ),
+        ],
+      ),
+    );
+  }
+
+  clearMenusUploadForm() {
+    setState(() {
+      shortInfoController.clear();
+      titleController.clear();
+      imageXFile = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return defaultScreen();
+    return imageXFile == null ? defaultScreen() : menuUploadFormScreen();
   }
 }
