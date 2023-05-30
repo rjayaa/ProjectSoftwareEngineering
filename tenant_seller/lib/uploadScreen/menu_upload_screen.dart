@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tenant_seller/mainScreens/home_screen.dart';
 import 'package:tenant_seller/widgets/progress_bar.dart';
 
+import '../widgets/error_dialog.dart';
+
 class MenusUploadScreen extends StatefulWidget {
   const MenusUploadScreen({super.key});
 
@@ -191,10 +193,8 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
                 fontSize: 16,
               ),
             ),
-            onPressed: () {
-              validateUploadForm();
-            },
-          )
+            onPressed: uploading ? null : () => validateUploadForm(),
+          ),
         ],
       ),
       body: ListView(
@@ -278,9 +278,34 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   }
 
   validateUploadForm() {
-    setState(() {
-      uploading = true;
-    });
+    if (imageXFile != null) {
+      if (shortInfoController.text.isNotEmpty &&
+          titleController.text.isNotEmpty) {
+        setState(() {
+          uploading = true;
+        });
+        // upload image
+        // save info to firebase
+      } else {
+        showDialog(
+          context: context,
+          builder: (c) {
+            return ErrorDialog(
+              message: "Please fill the form.",
+            );
+          },
+        );
+      }
+    } else {
+      showDialog(
+        context: context,
+        builder: (c) {
+          return ErrorDialog(
+            message: "Please pick a image",
+          );
+        },
+      );
+    }
   }
 
   @override
