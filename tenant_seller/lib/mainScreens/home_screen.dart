@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tenant_seller/authentication/auth_screen.dart';
 import 'package:tenant_seller/global/global.dart';
 import 'package:tenant_seller/uploadScreen/menu_upload_screen.dart';
 import 'package:tenant_seller/widgets/my_drawer.dart';
