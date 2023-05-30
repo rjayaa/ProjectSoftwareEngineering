@@ -1,10 +1,12 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tenant_seller/global/global.dart';
 import 'package:tenant_seller/mainScreens/home_screen.dart';
 import 'package:tenant_seller/widgets/progress_bar.dart';
-
+import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 import '../widgets/error_dialog.dart';
 
 class MenusUploadScreen extends StatefulWidget {
@@ -22,6 +24,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
   TextEditingController titleController = TextEditingController();
 
   bool uploading = false;
+  String uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
 
   defaultScreen() {
     return Scaffold(
@@ -277,7 +280,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
     });
   }
 
-  validateUploadForm() {
+  validateUploadForm() async {
     if (imageXFile != null) {
       if (shortInfoController.text.isNotEmpty &&
           titleController.text.isNotEmpty) {
@@ -285,7 +288,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
           uploading = true;
         });
         // upload image
+        String downloadUrl = await uploadImage(File(imageXFile!.path));
         // save info to firebase
+        saveInfo(downloadUrl);
       } else {
         showDialog(
           context: context,
@@ -306,6 +311,43 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         },
       );
     }
+  }
+
+  uploadImage(mImageFile) async {
+    storageRef.Reference reference =
+        storageRef.FirebaseStorage.instance.ref().child("menus");
+
+    storageRef.UploadTask uploadTask =
+        reference.child(uniqueIdName + ".jpg").putFile(mImageFile);
+
+    storageRef.TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() {});
+
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+
+    return downloadUrl;
+  }
+
+  saveInfo(String downloadUrl) {
+    final ref = FirebaseFirestore.instance
+        .collection("sellers")
+        .doc(sharedPreferences!.getString("uid"))
+        .collection("menus");
+
+    ref.doc(uniqueIdName).set({
+      "menusID": uniqueIdName,
+      "sellerUID": sharedPreferences!.getString("uid"),
+      "menuInfo": shortInfoController.text.toString(),
+      "menutitle": titleController.text.toString(),
+      "publishedDate": DateTime.now(),
+      "status": "avaiable",
+      "thumbnailUrl": downloadUrl,
+    });
+
+    clearMenusUploadForm();
+    setState(() {
+      uniqueIdName = DateTime.now().millisecondsSinceEpoch.toString();
+      uploading = false;
+    });
   }
 
   @override
