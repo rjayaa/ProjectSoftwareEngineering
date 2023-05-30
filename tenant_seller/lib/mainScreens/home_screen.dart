@@ -7,6 +7,7 @@ import 'package:tenant_seller/uploadScreen/menu_upload_screen.dart';
 import 'package:tenant_seller/widgets/info_design.dart';
 import 'package:tenant_seller/widgets/my_drawer.dart';
 import 'package:tenant_seller/widgets/progress_bar.dart';
+import 'package:tenant_seller/widgets/text_widget_header.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -50,20 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: CustomScrollView(
         slivers: [
-          const SliverToBoxAdapter(
-            child: ListTile(
-              title: Text(
-                "My Menus",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "Poppins",
-                  fontSize: 30,
-                  letterSpacing: 2,
-                  color: Colors.red,
-                ),
-              ),
-            ),
-          ),
+          SliverPersistentHeader(
+              pinned: true, delegate: TextWidgetHeader(title: "My Menus")),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("sellers")
