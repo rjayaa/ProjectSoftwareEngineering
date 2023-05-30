@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:courierapp/authentication/auth_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (c) {
           return LoadingDialog(
-            message: "Checking Credentials,",
+            message: "Checking Credentials",
           );
         });
     User? currentUser;
@@ -63,27 +64,42 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (currentUser != null) {
-      readDataAndSetDataLocally(currentUser!).then((value) {
-        Navigator.pop(context);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
-      });
+      readDataAndSetDataLocally(currentUser!);
     }
   }
 
   Future readDataAndSetDataLocally(User currentUser) async {
     await FirebaseFirestore.instance
         .collection("couriers")
-        .doc(currentUser.uid)
+        .doc(currentUser.uid) // ngecek uidnya ada apa engga di database
         .get()
         .then((snapshot) async {
-      await sharedPreferences!.setString("uid", currentUser.uid);
-      await sharedPreferences!
-          .setString("email", snapshot.data()!["courierEmail"]);
-      await sharedPreferences!
-          .setString("name", snapshot.data()!["courierName"]);
-      await sharedPreferences!
-          .setString("photoUrl", snapshot.data()!["courierAvatarUrl"]);
+      if (snapshot.exists) {
+        // kalo datanya ada
+        await sharedPreferences!.setString("uid", currentUser.uid);
+        await sharedPreferences!
+            .setString("email", snapshot.data()!["courierEmail"]);
+        await sharedPreferences!
+            .setString("name", snapshot.data()!["courierName"]);
+        await sharedPreferences!
+            .setString("photoUrl", snapshot.data()!["courierAvatarUrl"]);
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
+      } else {
+        // kalo datanya gaada di lempar lagi ke authscreen
+        firebaseAuth.signOut();
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => const AuthScreen()));
+        showDialog(
+            context: context,
+            builder: (c) {
+              return ErrorDialog(
+                message: "This user does not exist!",
+              );
+            });
+      }
     });
   }
 
