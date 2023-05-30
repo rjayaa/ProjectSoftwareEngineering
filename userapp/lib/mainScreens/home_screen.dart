@@ -1,9 +1,12 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:userapp/models/sellers.dart';
+import 'package:userapp/widgets/info_design.dart';
 import 'package:userapp/widgets/my_drawer.dart';
+import 'package:userapp/widgets/progress_bar.dart';
 
-import '../authentication/auth_screen.dart';
 import '../global/global.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,33 +18,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final items = [
-    "slider/1.jpg",
-    "slider/2.jpg",
-    "slider/3.jpg",
-    "slider/4.jpg",
-    "slider/5.jpg",
-    "slider/6.jpg",
-    "slider/7.jpg",
-    "slider/8.jpg",
-    "slider/9.jpg",
-    "slider/10.jpg",
-    "slider/11.jpg",
-    "slider/12.jpg",
-    "slider/13.jpg",
-    "slider/14.jpg",
-    "slider/15.jpg",
-    "slider/16.jpg",
-    "slider/17.jpg",
-    "slider/18.jpg",
-    "slider/19.jpg",
-    "slider/20.jpg",
-    "slider/21.jpg",
-    "slider/22.jpg",
-    "slider/23.jpg",
-    "slider/24.jpg",
-    "slider/25.jpg",
-    "slider/26.jpg",
-    "slider/27.jpg",
+    "slider/0.png",
+    "slider/1.png",
+    "slider/2.png",
   ];
 
   @override
@@ -68,8 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-                height: MediaQuery.of(context).size.height * .3,
-                width: MediaQuery.of(context).size.width,
+                height: 120,
+                width: 220,
+                // height: MediaQuery.of(context).size.height * .3,
+                // width: MediaQuery.of(context).size.width,
                 child: CarouselSlider(
                   options: CarouselOptions(
                     height: MediaQuery.of(context).size.height * .3,
@@ -107,7 +88,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          )
+          ),
+          StreamBuilder<QuerySnapshot>(
+            stream:
+                FirebaseFirestore.instance.collection("sellers").snapshots(),
+            builder: (context, snapshot) {
+              return !snapshot.hasData
+                  ? SliverToBoxAdapter(
+                      child: Center(
+                        child: circularProgress(),
+                      ),
+                    )
+                  : SliverStaggeredGrid.countBuilder(
+                      crossAxisCount: 1,
+                      staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                      itemBuilder: (context, index) {
+                        Sellers sModel = Sellers.fromJson(
+                            snapshot.data!.docs[index].data()!
+                                as Map<String, dynamic>);
+                        //design for display sellers-cafes-restuarents
+                        return InfoDesignWidget(
+                          model: sModel,
+                          context: context,
+                        );
+                      },
+                      itemCount: snapshot.data!.docs.length,
+                    );
+            },
+          ),
         ],
       ),
     );
