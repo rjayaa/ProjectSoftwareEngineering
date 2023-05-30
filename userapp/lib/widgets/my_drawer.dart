@@ -5,20 +5,118 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Colors.white,
       child: ListView(
         children: [
           Container(
-            color: const Color(0xFFFC7115),
-            padding: const EdgeInsets.all(20),
-            child: const Center(
-              child: Text(
-                "Mau Cari Apa?",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontFamily: "Poppins",
+            padding: const EdgeInsets.only(top: 25, bottom: 10),
+            child: Column(
+              children: [
+                Material(
+                  borderRadius: const BorderRadius.all(Radius.circular(80)),
+                  elevation: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Container(
+                      height: 110,
+                      width: 110,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("images/user.png"),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(height: 12),
+                Text(
+                  sharedPreferences!.getString("name")!,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: "Poppins",
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                Divider(
+                  height: 10,
+                  color: Colors.grey,
+                  thickness: 3,
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.home,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    "Home",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.reorder,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    "My Orders",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.access_time,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    "History",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    "Search",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: "Roboto",
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.exit_to_app,
+                    color: Colors.black,
+                  ),
+                  title: const Text(
+                    "Sign Out",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: "Roboto",
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+              ],
             ),
           ),
         ],
