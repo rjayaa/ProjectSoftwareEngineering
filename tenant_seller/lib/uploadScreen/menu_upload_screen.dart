@@ -337,9 +337,9 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
       "menusID": uniqueIdName,
       "sellerUID": sharedPreferences!.getString("uid"),
       "menuInfo": shortInfoController.text.toString(),
-      "menutitle": titleController.text.toString(),
+      "menuTitle": titleController.text.toString(),
       "publishedDate": DateTime.now(),
-      "status": "avaiable",
+      "status": "available",
       "thumbnailUrl": downloadUrl,
     });
 
