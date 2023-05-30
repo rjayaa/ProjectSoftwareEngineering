@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tenant_seller/authentication/auth_screen.dart';
-import 'package:tenant_seller/mainScreens/home_screen.dart';
-import 'package:tenant_seller/widgets/custom_text_field.dart';
-import 'package:tenant_seller/widgets/error_dialog.dart';
-import 'package:tenant_seller/widgets/loading_dialog.dart';
 
 import '../global/global.dart';
+import '../mainScreens/home_screen.dart';
+import '../widgets/custom_text_field.dart';
+import '../widgets/error_dialog.dart';
+import '../widgets/loading_dialog.dart';
+import 'auth_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -70,22 +70,21 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future readDataAndSetDataLocally(User currentUser) async {
     await FirebaseFirestore.instance
-        .collection("sellers")
-        .doc(currentUser.uid)
+        .collection("users")
+        .doc(currentUser.uid) // ngecek uidnya ada apa engga di database
         .get()
         .then((snapshot) async {
       if (snapshot.exists) {
+        // kalo datanya ada
         await sharedPreferences!.setString("uid", currentUser.uid);
-        await sharedPreferences!
-            .setString("email", snapshot.data()!["sellerEmail"]);
-        await sharedPreferences!
-            .setString("name", snapshot.data()!["sellerName"]);
-        await sharedPreferences!
-            .setString("photoUrl", snapshot.data()!["sellerAvatarUrl"]);
+        await sharedPreferences!.setString("email", snapshot.data()!["email"]);
+        await sharedPreferences!.setString("name", snapshot.data()!["name"]);
+
         Navigator.pop(context);
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const HomeScreen()));
       } else {
+        // kalo datanya gaada di lempar lagi ke authscreen
         firebaseAuth.signOut();
         Navigator.pop(context);
         Navigator.push(
