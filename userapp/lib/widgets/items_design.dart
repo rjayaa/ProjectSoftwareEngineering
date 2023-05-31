@@ -14,7 +14,7 @@ class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.red,
+      splashColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(

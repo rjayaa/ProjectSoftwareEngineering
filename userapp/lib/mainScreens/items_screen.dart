@@ -5,15 +5,14 @@ import 'package:userapp/models/Items.dart';
 
 import 'package:userapp/widgets/items_design.dart';
 
-import '../global/global.dart';
-
+import '../models/Menus.dart';
 import '../widgets/my_drawer.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/text_widget_header.dart';
 
 class ItemsScreen extends StatefulWidget {
-  const ItemsScreen({super.key});
-
+  Menus? model;
+  ItemsScreen({this.model});
   @override
   State<ItemsScreen> createState() => _ItemsScreenState();
 }
@@ -27,7 +26,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
         toolbarHeight: 60,
         backgroundColor: Color(0xff272727),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           "CanteenCartSunib",
           style: const TextStyle(
             color: Colors.white,
@@ -72,12 +71,16 @@ class _ItemsScreenState extends State<ItemsScreen> {
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
-              pinned: true, delegate: TextWidgetHeader(title: "My Menus")),
+              pinned: true,
+              delegate: TextWidgetHeader(
+                  title: "Items of " + widget.model!.menuTitle.toString())),
           StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection("sellers")
-                .doc(sharedPreferences!.getString("uid"))
+                .doc(widget.model!.sellerUID)
                 .collection("menus")
+                .doc(widget.model!.menuID)
+                .collection("items")
                 .orderBy("publishedDate", descending: true)
                 .snapshots(),
             builder: (context, snapshot) {

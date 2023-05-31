@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/models/menus.dart';
+import 'package:userapp/mainScreens/items_screen.dart';
+import 'package:userapp/models/Menus.dart';
 
 class MenusDesignWidget extends StatelessWidget {
-  Menus? model;
+  final Menus? model;
   BuildContext? context;
   MenusDesignWidget({this.model, this.context});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.red,
       onTap: () {
-        // Implement your onTap logic here
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (c) => ItemsScreen(model: model),
+          ),
+        );
       },
+      splashColor: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(

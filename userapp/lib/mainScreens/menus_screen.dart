@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:userapp/models/menus.dart';
+import 'package:userapp/models/Menus.dart';
 import 'package:userapp/models/sellers.dart';
 
 import 'package:userapp/widgets/menus_design.dart';
-import '../global/global.dart';
 
 import '../widgets/my_drawer.dart';
 import '../widgets/progress_bar.dart';
