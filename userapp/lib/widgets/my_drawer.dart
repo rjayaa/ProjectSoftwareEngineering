@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/global/global.dart';
 
+import '../authentication/auth_screen.dart';
+
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -115,13 +117,14 @@ class MyDrawer extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                     firebaseAuth.signOut().then((value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (c) => const AuthScreen()));
-                  },
-                     ),
+                    firebaseAuth.signOut().then(
+                      (value) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (c) => const AuthScreen()));
+                      },
+                    );
                   },
                 ),
               ],

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/models/sellers.dart';
+import 'package:userapp/models/Items.dart';
 
-class InfoDesignWidget extends StatefulWidget {
-  Sellers? model;
+class ItemsDesignWidget extends StatefulWidget {
+  Items? model;
   BuildContext? context;
 
-  InfoDesignWidget({this.model, this.context});
+  ItemsDesignWidget({this.model, this.context});
   @override
-  State<InfoDesignWidget> createState() => _InfoDesignWidgetState();
+  State<ItemsDesignWidget> createState() => _ItemsDesignWidgetState();
 }
 
-class _InfoDesignWidgetState extends State<InfoDesignWidget> {
+class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -28,7 +28,7 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
                 color: Colors.grey[300],
               ),
               Image.network(
-                widget.model!.sellerAvatarUrl!,
+                widget.model!.thumbnailUrl!,
                 height: 150.0,
                 fit: BoxFit.cover,
               ),
@@ -36,7 +36,20 @@ class _InfoDesignWidgetState extends State<InfoDesignWidget> {
                 height: 10.0,
               ),
               Text(
-                widget.model!.sellerName!,
+                widget.model!.title!,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontFamily: "Roboto",
+                ),
+              ),
+              Divider(
+                height: 1,
+                thickness: 3,
+                color: Colors.grey[300],
+              ),
+              Text(
+                widget.model!.shortInfo!,
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 20,

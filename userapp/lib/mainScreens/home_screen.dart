@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:userapp/models/sellers.dart';
-import 'package:userapp/widgets/info_design.dart';
+import 'package:userapp/widgets/sellers_design.dart';
 import 'package:userapp/widgets/my_drawer.dart';
 import 'package:userapp/widgets/progress_bar.dart';
 
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             snapshot.data!.docs[index].data()!
                                 as Map<String, dynamic>);
                         //design for display sellers-cafes-restuarents
-                        return InfoDesignWidget(
+                        return SellersDesignWidget(
                           model: sModel,
                           context: context,
                         );
