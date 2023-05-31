@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:userapp/models/Items.dart';
+import 'package:userapp/widgets/app_bar.dart';
 
 import 'package:userapp/widgets/items_design.dart';
 
@@ -21,53 +22,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
-      appBar: AppBar(
-        toolbarHeight: 60,
-        backgroundColor: Color(0xff272727),
-        centerTitle: true,
-        title: const Text(
-          "CanteenCartSunib",
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            fontFamily: "Poppins",
-          ),
-        ),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        automaticallyImplyLeading: true,
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.shopping_cart,
-            ),
-            onPressed: () {
-              //send user to cart screen
-            },
-          ),
-          Positioned(
-            child: Stack(children: const [
-              Icon(
-                Icons.brightness_1,
-                size: 20.0,
-                color: Colors.green,
-              ),
-              Positioned(
-                top: 3,
-                right: 4,
-                child: Center(
-                  child: Text(
-                    "0",
-                    style: TextStyle(fontSize: 12),
-                  ),
-                ),
-              )
-            ]),
-          ),
-        ],
-      ),
+      appBar: MyAppBar(),
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
