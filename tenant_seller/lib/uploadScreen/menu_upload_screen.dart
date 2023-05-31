@@ -334,7 +334,7 @@ class _MenusUploadScreenState extends State<MenusUploadScreen> {
         .collection("menus");
 
     ref.doc(uniqueIdName).set({
-      "menusID": uniqueIdName,
+      "menuID": uniqueIdName,
       "sellerUID": sharedPreferences!.getString("uid"),
       "menuInfo": shortInfoController.text.toString(),
       "menuTitle": titleController.text.toString(),

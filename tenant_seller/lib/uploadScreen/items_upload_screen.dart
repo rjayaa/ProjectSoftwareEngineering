@@ -10,15 +10,14 @@ import 'package:firebase_storage/firebase_storage.dart' as storageRef;
 import '../model/menus.dart';
 import '../widgets/error_dialog.dart';
 
-class ItemsUploadScreen extends StatefulWidget {
+class ItemUploadScreen extends StatefulWidget {
   final Menus? model;
-  ItemsUploadScreen({this.model});
-
+  ItemUploadScreen({this.model});
   @override
-  State<ItemsUploadScreen> createState() => _ItemsUploadScreenState();
+  State<ItemUploadScreen> createState() => _ItemUploadScreenState();
 }
 
-class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
+class _ItemUploadScreenState extends State<ItemUploadScreen> {
   XFile? imageXFile;
   final ImagePicker _picker = ImagePicker();
 
@@ -36,7 +35,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
         backgroundColor: Color(0xff272727),
         centerTitle: true,
         title: Text(
-          "Add New Item",
+          "Add New Items",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -79,7 +78,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
                           borderRadius: BorderRadius.circular(20))),
                 ),
                 child: Text(
-                  "Add New Menu",
+                  "Add New Item",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -162,7 +161,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
     });
   }
 
-  ItemsUploadFormScreen() {
+  itemsUploadFormScreen() {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 60,
@@ -272,7 +271,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
           ),
           ListTile(
             leading: const Icon(
-              Icons.camera,
+              Icons.money,
               color: Color(0xffFC7115),
             ),
             title: Container(
@@ -282,7 +281,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
                 style: TextStyle(color: Colors.black),
                 controller: priceController,
                 decoration: InputDecoration(
-                  hintText: "Harga...",
+                  hintText: "Harga..",
                   hintStyle: TextStyle(color: Colors.grey),
                   border: InputBorder.none,
                 ),
@@ -365,7 +364,7 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
     ref.doc(uniqueIdName).set({
       "itemID": uniqueIdName,
-      "menusID": uniqueIdName,
+      "menuID": widget.model!.menuID,
       "sellerUID": sharedPreferences!.getString("uid"),
       "sellerName": sharedPreferences!.getString("name"),
       "shortInfo": shortInfoController.text.toString(),
@@ -376,9 +375,10 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
       "thumbnailUrl": downloadUrl,
     }).then((value) {
       final itemsRef = FirebaseFirestore.instance.collection("items");
+      final query = itemsRef.where("menuID", isEqualTo: uniqueIdName);
       itemsRef.doc(uniqueIdName).set({
         "itemID": uniqueIdName,
-        "menusID": uniqueIdName,
+        "menuID": widget.model!.menuID,
         "sellerUID": sharedPreferences!.getString("uid"),
         "sellerName": sharedPreferences!.getString("name"),
         "shortInfo": shortInfoController.text.toString(),
@@ -399,6 +399,6 @@ class _ItemsUploadScreenState extends State<ItemsUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return imageXFile == null ? defaultScreen() : ItemsUploadFormScreen();
+    return imageXFile == null ? defaultScreen() : itemsUploadFormScreen();
   }
 }
