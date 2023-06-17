@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:userapp/mainScreens/home_screen.dart';
 import 'package:userapp/splashscreen/splash_screen.dart';
 
 import 'global/global.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MySplashScreen(),
+      routes: {
+        '/home': (context) => HomeScreen(),
+        // Define other routes here
+      },
     );
   }
 }

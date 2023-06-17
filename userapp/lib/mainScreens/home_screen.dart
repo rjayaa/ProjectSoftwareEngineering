@@ -4,6 +4,8 @@ import 'package:userapp/models/sellers.dart';
 import 'package:userapp/widgets/sellers_design.dart';
 import 'package:userapp/widgets/progress_bar.dart';
 
+import '../widgets/bottom_nav_bar.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key});
 
@@ -90,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }
