@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:userapp/assistantMethods/asisstant_methods.dart';
+import 'package:userapp/models/items.dart';
 import 'package:userapp/widgets/app_bar.dart';
+import 'package:userapp/widgets/cart_item_design.dart';
+import 'package:userapp/widgets/progress_bar.dart';
+
+import '../widgets/text_widget_header.dart';
 
 class CartScreen extends StatefulWidget {
   final String? sellerUID;
@@ -56,6 +62,49 @@ class _CartScreenState extends State<CartScreen> {
               onPressed: () {},
             ),
           ),
+        ],
+      ),
+      body: CustomScrollView(
+        slivers: [
+          // overall total price
+
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: TextWidgetHeader(
+              title: "Total Amount = 120",
+            ),
+          ),
+          // display cart items with quantity number
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("items")
+                  .where("itemID", whereIn: separateItemIDs())
+                  .orderBy("publishedDate", descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                return !snapshot.hasData
+                    ? SliverToBoxAdapter(
+                        child: Center(
+                          child: circularProgress(),
+                        ),
+                      )
+                    : snapshot.data!.docs.length == 0
+                        ? // startBuildingCart()
+                        Container()
+                        : SliverList(delegate:
+                            SliverChildBuilderDelegate((context, index) {
+                            Items model = Items.fromJson(
+                              snapshot.data!.docs[index].data()!
+                                  as Map<String, dynamic>,
+                            );
+
+                            return CartItemDesign(
+                              model: model,
+                              context: context,
+                              separateItemQuantitiesList: [index],
+                            );
+                          }));
+              })
         ],
       ),
     );
