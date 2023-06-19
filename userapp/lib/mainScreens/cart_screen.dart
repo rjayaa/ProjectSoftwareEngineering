@@ -16,10 +16,12 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  List<int>? separateItemQuantityList;
   @override
   void initState() {
     super.initState();
     separateItemQuantities();
+    separateItemQuantityList = separateItemQuantities();
   }
 
   @override
@@ -91,19 +93,25 @@ class _CartScreenState extends State<CartScreen> {
                     : snapshot.data!.docs.length == 0
                         ? // startBuildingCart()
                         Container()
-                        : SliverList(delegate:
-                            SliverChildBuilderDelegate((context, index) {
-                            Items model = Items.fromJson(
-                              snapshot.data!.docs[index].data()!
-                                  as Map<String, dynamic>,
-                            );
+                        : SliverList(
+                            delegate: SliverChildBuilderDelegate(
+                              (context, index) {
+                                Items model = Items.fromJson(
+                                  snapshot.data!.docs[index].data()!
+                                      as Map<String, dynamic>,
+                                );
 
-                            return CartItemDesign(
-                              model: model,
-                              context: context,
-                              separateItemQuantitiesList: [index],
-                            );
-                          }));
+                                return CartItemDesign(
+                                  model: model,
+                                  context: context,
+                                  quanNumber: separateItemQuantityList![index],
+                                );
+                              },
+                              childCount: snapshot.hasData
+                                  ? snapshot.data!.docs.length
+                                  : 0,
+                            ),
+                          );
               })
         ],
       ),

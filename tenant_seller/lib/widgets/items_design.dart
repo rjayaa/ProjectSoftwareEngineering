@@ -34,16 +34,6 @@ class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
                 thickness: 3,
                 color: Colors.grey[300],
               ),
-              Text(
-                // "hello",
-                widget.model!.title!,
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
               Image.network(
                 widget.model!.thumbnailUrl!,
                 height: 150.0,
@@ -51,6 +41,15 @@ class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
               ),
               const SizedBox(
                 height: 10.0,
+              ),
+              Text(
+                widget.model!.title!,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.normal,
+                ),
               ),
               Text(
                 widget.model!.shortInfo!,
