@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:userapp/models/Items.dart';
 import 'package:userapp/widgets/app_bar.dart';
+
+import '../assistantMethods/asisstant_methods.dart';
 
 class ItemDetailScreen extends StatefulWidget {
   final Items? model;
@@ -14,6 +17,7 @@ class ItemDetailScreen extends StatefulWidget {
 
 class _ItemDetailScreenState extends State<ItemDetailScreen> {
   TextEditingController counterTextEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +60,15 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
             child: Center(
               child: InkWell(
                 onTap: () {
-                  // add to cart
+                  int itemCounter =
+                      int.parse(counterTextEditingController.text);
+                  // 1. check if itemm exist already in cart
+                  List<String> separateItemIDsList = separateItemIDs();
+                  separateItemIDsList.contains(widget.model!.itemID)
+                      ? Fluttertoast.showToast(msg: "Item is already in Cart.")
+                      :
+                      // 2. add to cart
+                      addItemToCart(widget.model!.itemID, context, itemCounter);
                 },
                 child: Container(
                     decoration: const BoxDecoration(

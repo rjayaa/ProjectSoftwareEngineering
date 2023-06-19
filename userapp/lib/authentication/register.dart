@@ -66,7 +66,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  Future<void> saveDataToFirestore(User currentUser) async {
+  Future saveDataToFirestore(User currentUser) async {
     await FirebaseFirestore.instance
         .collection("users")
         .doc(currentUser.uid)
@@ -75,12 +75,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       "email": currentUser.email,
       "name": nameController.text.trim(),
       "status": "approved",
+      "userCart": ['garbageValue'],
     });
 
     sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences!.setString("uid", currentUser.uid);
     await sharedPreferences!.setString("email", currentUser.email.toString());
     await sharedPreferences!.setString("name", nameController.text.trim());
+    await sharedPreferences!.setStringList("userCart", ['garbageValue']);
   }
 
   @override
