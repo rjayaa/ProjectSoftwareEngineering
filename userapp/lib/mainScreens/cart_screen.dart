@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:userapp/assistantMethods/asisstant_methods.dart';
 import 'package:userapp/models/items.dart';
 import 'package:userapp/widgets/app_bar.dart';
 import 'package:userapp/widgets/cart_item_design.dart';
 import 'package:userapp/widgets/progress_bar.dart';
 
+import '../assistantMethods/cart_item_counter.dart';
+import '../splashscreen/splash_screen.dart';
 import '../widgets/text_widget_header.dart';
 
 class CartScreen extends StatefulWidget {
@@ -27,11 +31,71 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(sellerUID: widget.sellerUID),
+      // appBar: MyAppBar(sellerUID: widget.sellerUID),
+      appBar: AppBar(
+        toolbarHeight: 60,
+        backgroundColor: Color(0xff272727),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.clear_all),
+          onPressed: () {
+            clearCartNow(context);
+          },
+        ),
+        title: const Text(
+          "CanteenCartSunib",
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontFamily: "Poppins",
+          ),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
+        automaticallyImplyLeading: true,
+        actions: [
+          Stack(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.shopping_cart,
+                ),
+                onPressed: () {
+                  //send user to cart screen
+                  print("clicked");
+                },
+              ),
+              Positioned(
+                child: Stack(children: [
+                  const Icon(
+                    Icons.brightness_1,
+                    size: 20.0,
+                    color: Colors.green,
+                  ),
+                  Positioned(
+                    top: 3,
+                    right: 4,
+                    child: Center(
+                      child: Consumer<CartItemCounter>(
+                          builder: (context, counter, c) {
+                        return Text(
+                          counter.count.toString(),
+                          style: const TextStyle(fontSize: 12),
+                        );
+                      }),
+                    ),
+                  ),
+                ]),
+              ),
+            ],
+          ),
+        ],
+      ),
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Align(
@@ -46,7 +110,13 @@ class _CartScreenState extends State<CartScreen> {
               ),
               backgroundColor: const Color(0xffFC7115),
               icon: const Icon(Icons.clear_all),
-              onPressed: () {},
+              onPressed: () {
+                clearCartNow(context);
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (c) => const MySplashScreen()));
+                Fluttertoast.showToast(msg: "Cart has been cleared.");
+              },
             ),
           ),
           Align(

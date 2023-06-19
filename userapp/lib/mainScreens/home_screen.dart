@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:userapp/assistantMethods/asisstant_methods.dart';
 import 'package:userapp/models/sellers.dart';
 import 'package:userapp/widgets/sellers_design.dart';
 import 'package:userapp/widgets/my_drawer.dart';
@@ -22,6 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
     "slider/1.png",
     "slider/2.png",
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    clearCartNow(context);
+  }
 
   @override
   Widget build(BuildContext context) {
