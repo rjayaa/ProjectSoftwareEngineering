@@ -38,12 +38,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   loginNow() async {
     showDialog(
-        context: context,
-        builder: (c) {
-          return LoadingDialog(
-            message: "Checking Credentials",
-          );
-        });
+      context: context,
+      builder: (c) {
+        return LoadingDialog(
+          message: "Checking Credentials",
+        );
+      },
+    );
     User? currentUser;
     await firebaseAuth
         .signInWithEmailAndPassword(
@@ -55,12 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }).catchError((error) {
       Navigator.pop(context);
       showDialog(
-          context: context,
-          builder: (c) {
-            return ErrorDialog(
-              message: error.message,
-            );
-          });
+        context: context,
+        builder: (c) {
+          return ErrorDialog(
+            message: error.message,
+          );
+        },
+      );
     });
 
     if (currentUser != null) {
@@ -80,17 +82,15 @@ class _LoginScreenState extends State<LoginScreen> {
         await sharedPreferences!.setString("email", snapshot.data()!["email"]);
         await sharedPreferences!.setString("name", snapshot.data()!["name"]);
 
-        List<String> userCartList =
-            (snapshot.data()!["userCart"] as List<dynamic>).cast<String>();
-        ;
+        List<String> userCartList = snapshot.data()!["userCart"];
         sharedPreferences!.setStringList("userCart", userCartList);
 
+        firebaseAuth.signOut();
         Navigator.pop(context);
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const HomeScreen()));
       } else {
         // kalo datanya gaada di lempar lagi ke authscreen
-        firebaseAuth.signOut();
         Navigator.pop(context);
         Navigator.push(
             context, MaterialPageRoute(builder: (c) => const AuthScreen()));

@@ -91,20 +91,31 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // Perform navigation or other operations based on the selected index
       switch (index) {
         case 0:
-          Navigator.pushNamed(context, '/home');
-          // Navigate to the search page
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (c) => HomeScreen()),
+          // );
           break;
         case 1:
           // Navigate to the shop page
-          // Tambahkan kode untuk navigasi ke halaman toko di sini
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (c) => ShopScreen()),
+          // );
           break;
         case 2:
           // Navigate to the cart page
-          // Tambahkan kode untuk navigasi ke halaman keranjang di sini
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (c) => CartScreen()),
+          // );
           break;
         case 3:
           // Navigate to the history page
-          // Tambahkan kode untuk navigasi ke halaman riwayat di sini
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (c) => HistoryScreen()),
+          // );
           break;
       }
     }
@@ -123,7 +134,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       unselectedIconTheme: IconThemeData(size: 24),
       unselectedItemColor: Colors.white,
       currentIndex: _selectedIndex,
-      onTap: _onItemTapped, // Call _onItemTapped when an item is tapped
+      onTap: _onItemTapped,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
