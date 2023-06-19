@@ -15,17 +15,19 @@ class TextWidgetHeader extends SliverPersistentHeaderDelegate {
         decoration: const BoxDecoration(color: Color(0xff1E1E1E)),
         height: 80.0,
         width: MediaQuery.of(context).size.width,
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         child: InkWell(
-          child: Text(
-            title!,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 20,
-              letterSpacing: 2,
-              color: Colors.red,
+          child: Padding(
+            padding: EdgeInsets.only(left: 24.0), // Adjust the value as needed
+            child: Text(
+              title!,
+              maxLines: 2,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 28.0,
+                fontWeight: FontWeight.w400,
+              ),
             ),
           ),
         ),

@@ -22,19 +22,19 @@ class MenusDesignWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
+          decoration: const BoxDecoration(color: Color(0xff1E1E1E)),
           height: 265,
           width: MediaQuery.of(context).size.width,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, // Align children to the left
             children: [
-              Divider(
-                height: 20,
-                thickness: 3,
-                color: Colors.grey[300],
-              ),
-              Image.network(
-                model!.thumbnailUrl!,
-                height: 150.0,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0), // Set the desired border radius
+                child: Image.network(
+                  model!.thumbnailUrl!,
+                  height: 150.0,
+                  fit: BoxFit.cover,
+                ),
               ),
               const SizedBox(
                 height: 10.0,
@@ -42,28 +42,18 @@ class MenusDesignWidget extends StatelessWidget {
               Text(
                 model!.menuTitle!,
                 style: const TextStyle(
-                  color: Colors.red,
+                  color: Colors.white,
                   fontSize: 20,
                   fontFamily: "Roboto",
                 ),
-              ),
-              Divider(
-                height: 1,
-                thickness: 3,
-                color: Colors.grey[300],
               ),
               Text(
                 model!.menuInfo!,
                 style: const TextStyle(
-                  color: Colors.red,
+                  color: Colors.white,
                   fontSize: 20,
                   fontFamily: "Roboto",
                 ),
-              ),
-              Divider(
-                height: 1,
-                thickness: 3,
-                color: Colors.grey[300],
               ),
             ],
           ),

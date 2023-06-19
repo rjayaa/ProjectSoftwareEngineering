@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: circularProgress(),
                       );
                     } else {
-                      return Expanded( // Wrap GridView.builder with Expanded
+                      return Expanded(
                         child: GridView.builder(
                           padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
