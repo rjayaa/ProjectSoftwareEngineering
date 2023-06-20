@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:userapp/global/global.dart';
 
 import '../authentication/auth_screen.dart';
+import '../mainScreens/my_orders_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -73,7 +74,10 @@ class MyDrawer extends StatelessWidget {
                         fontFamily: "Roboto",
                         fontWeight: FontWeight.bold),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => MyOrdersScreen()));
+                  },
                 ),
                 ListTile(
                   leading: Icon(

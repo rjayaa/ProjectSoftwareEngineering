@@ -25,7 +25,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar(),
+      appBar: SimpleAppBar(title: "CanteenCartSunib"),
       backgroundColor: Color(0xff272727),
       floatingActionButton: FloatingActionButton.extended(
         label: const Text(

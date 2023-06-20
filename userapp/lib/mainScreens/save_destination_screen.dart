@@ -18,7 +18,7 @@ class SaveDestinationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar(),
+      appBar: SimpleAppBar(title: "CanteenCartSunib"),
       backgroundColor: Color(0xff272727),
       floatingActionButton: FloatingActionButton.extended(
         icon: const Icon(Icons.check),

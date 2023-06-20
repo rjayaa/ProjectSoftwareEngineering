@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/mainScreens/home_screen.dart';
+import 'package:userapp/mainScreens/my_orders_screen.dart';
 
 import '../authentication/auth_screen.dart';
 import '../global/global.dart';
@@ -19,23 +21,24 @@ class _BottomNavBarState extends State<BottomNavBar> {
     // Perform navigation or other operations based on the selected index
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/home');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => HomeScreen()));
         // Navigate to the search page
         break;
       case 1:
-      // Navigate to the shop page
+        // Navigate to the shop page
         break;
       case 2:
-      // Navigate to the cart page
+        // Navigate to the cart page
+        Navigator.push(
+            context, MaterialPageRoute(builder: (c) => MyOrdersScreen()));
         break;
       case 3:
-      // Logout userr
+        // Logout userr
         firebaseAuth.signOut().then(
-              (value) {
+          (value) {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (c) => const AuthScreen()));
+                context, MaterialPageRoute(builder: (c) => const AuthScreen()));
           },
         );
         break;
@@ -70,7 +73,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: 'Cart',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.exit_to_app,),
+          icon: Icon(
+            Icons.exit_to_app,
+          ),
           label: 'History',
         ),
       ],
