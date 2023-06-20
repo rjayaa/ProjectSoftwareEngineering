@@ -73,6 +73,7 @@ class _CartScreenState extends State<CartScreen> {
           Align(
             alignment: Alignment.bottomLeft,
             child: FloatingActionButton.extended(
+              heroTag: "btn1",
               label: const Text(
                 "Clear Cart",
                 style: TextStyle(
@@ -94,6 +95,7 @@ class _CartScreenState extends State<CartScreen> {
           Align(
             alignment: Alignment.bottomRight,
             child: FloatingActionButton.extended(
+              heroTag: "btn2",
               label: const Text(
                 "Check out",
                 style: TextStyle(
@@ -128,63 +130,71 @@ class _CartScreenState extends State<CartScreen> {
           ),
 
           // display cart items with quantity number
+          //
           StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("items")
-                  .where("itemID", whereIn: separateItemIDs())
-                  .orderBy("publishedDate", descending: true)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                return !snapshot.hasData
-                    ? SliverToBoxAdapter(
-                        child: Center(
-                          child: circularProgress(),
-                        ),
-                      )
-                    : snapshot.data!.docs.isEmpty
-                        ? // startBuildingCart()
-                        Container()
-                        : SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (context, index) {
-                                Items model = Items.fromJson(
-                                  snapshot.data!.docs[index].data()!
-                                      as Map<String, dynamic>,
-                                );
+            stream: FirebaseFirestore.instance
+                .collection("items")
+                .where("itemID", whereIn: separateItemIDs())
+                .orderBy("publishedDate", descending: false)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: circularProgress(),
+                  ),
+                );
+              } else if (snapshot.data!.docs.isEmpty) {
+                return SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      "There is no item yet!",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                );
+              } else {
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      Items model = Items.fromJson(
+                        snapshot.data!.docs[index].data()!
+                            as Map<String, dynamic>,
+                      );
 
-                                if (index == 0) {
-                                  totalAmount = 0;
-                                  totalAmount = totalAmount +
-                                      (model.price! *
-                                          separateItemQuantityList![index]);
-                                } else {
-                                  totalAmount = totalAmount +
-                                      (model.price! *
-                                          separateItemQuantityList![index]);
-                                }
+                      if (index == 0) {
+                        totalAmount = 0;
+                        totalAmount = totalAmount +
+                            (model.price! * separateItemQuantityList![index]);
+                      } else {
+                        totalAmount = totalAmount +
+                            (model.price! * separateItemQuantityList![index]);
+                      }
 
-                                if (snapshot.data!.docs.length - 1 == index) {
-                                  WidgetsBinding.instance!
-                                      .addPostFrameCallback((timeStamp) {
-                                    Provider.of<TotalAmount>(context,
-                                            listen: false)
-                                        .displayTotalAmount(
-                                            totalAmount.toDouble());
-                                  });
-                                }
+                      if (snapshot.data!.docs.length - 1 == index) {
+                        WidgetsBinding.instance!
+                            .addPostFrameCallback((timeStamp) {
+                          Provider.of<TotalAmount>(context, listen: false)
+                              .displayTotalAmount(totalAmount.toDouble());
+                        });
+                      }
 
-                                return CartItemDesign(
-                                  model: model,
-                                  context: context,
-                                  quanNumber: separateItemQuantityList![index],
-                                );
-                              },
-                              childCount: snapshot.hasData
-                                  ? snapshot.data!.docs.length
-                                  : 0,
-                            ),
-                          );
-              }),
+                      return CartItemDesign(
+                        model: model,
+                        context: context,
+                        quanNumber: separateItemQuantityList![index],
+                      );
+                    },
+                    childCount: snapshot.data!.docs.length,
+                  ),
+                );
+              }
+            },
+          ),
+
           SliverToBoxAdapter(
             child: Consumer2<TotalAmount, CartItemCounter>(
               builder: (context, amountProvider, cartProvider, c) {
