@@ -11,7 +11,7 @@ class ShipmentLocationDesign extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Shipping Details",
+          "Shipping Detailss",
           style: const TextStyle(
               color: Colors.black, fontSize: 20, fontFamily: "Poppins"),
         ),
