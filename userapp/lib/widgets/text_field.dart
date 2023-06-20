@@ -12,7 +12,7 @@ class MyTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration.collapsed(
-            hintText: hint, hintStyle: const TextStyle(color: Colors.white60)),
+            hintText: hint, hintStyle: const TextStyle(color: Colors.white70)),
         validator: (value) => value!.isEmpty ? "Field can not be empty" : null,
       ),
     );

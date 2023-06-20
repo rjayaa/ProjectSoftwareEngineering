@@ -1,4 +1,9 @@
+import 'dart:js_interop';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:userapp/global/global.dart';
 import 'package:userapp/mainScreens/simple_app_bar.dart';
 import 'package:userapp/models/location.dart';
 
@@ -36,7 +41,17 @@ class SaveDestinationScreen extends StatelessWidget {
               floorNumber: _floorNumber.text.trim(),
               retrieveTime: _timeRetrieve?.trim(),
               detailLocation: _detailLocation.text.trim(),
-            );
+            ).toJson();
+            // FirebaseFirestore.instance
+            //     .collection("users")
+            //     .doc(sharedPreferences!.getString("uid"))
+            //     .collection("userLocation")
+            //     .doc(DateTime.now().millisecondsSinceEpoch.toString())
+            //     .set(model)
+            //     .then((value) {
+            //   Fluttertoast.showToast(msg: "New Location has been saved.");
+            //   formKey.currentState!.reset();
+            // });
           }
         },
         backgroundColor: Color(0xffFC7115),
@@ -50,7 +65,7 @@ class SaveDestinationScreen extends StatelessWidget {
                 child: Text(
                   "Save Location",
                   style: TextStyle(
-                    color: Colors.white60,
+                    color: Colors.white,
                     fontFamily: "Poppins",
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -66,27 +81,62 @@ class SaveDestinationScreen extends StatelessWidget {
                     hint: "Name",
                     controller: _name,
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   MyTextField(
                     hint: "Phone Number",
                     controller: _phoneNumber,
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   MyTextField(
                     hint: "Floor Number",
                     controller: _floorNumber,
                   ),
-                  DropdownButtonFormField<String>(
-                    hint: Text("Retrieve Time"),
-                    value: _timeRetrieve,
-                    items: <String>['09:00', '11:00', '13:00', '14:00']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      _timeRetrieve = newValue;
-                    },
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      hint: Text(
+                        "Retrieve Time",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      value: _timeRetrieve,
+                      dropdownColor:
+                          Color(0xff272727), // Warna dropdown saat dibuka
+                      items: <String>[
+                        '09:00',
+                        '11:00',
+                        '13:00',
+                        '14:00',
+                        '15:00',
+                        '17:00'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: _timeRetrieve == value
+                                  ? Colors.white70
+                                  : Colors
+                                      .white70, // Warna putih saat item dipilih
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        _timeRetrieve = newValue;
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   MyTextField(
                     hint: "Detail Location",
