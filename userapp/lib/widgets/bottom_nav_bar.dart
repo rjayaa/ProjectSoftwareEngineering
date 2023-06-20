@@ -29,7 +29,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // Navigate to the cart page
         break;
       case 3:
-      // Logout user
+      // Logout userr
         firebaseAuth.signOut().then(
               (value) {
             Navigator.push(
