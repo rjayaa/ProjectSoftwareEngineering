@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:userapp/mainScreens/simple_app_bar.dart';
+import 'package:userapp/models/location.dart';
 
 import '../widgets/text_field.dart';
 
@@ -7,7 +8,7 @@ class SaveDestinationScreen extends StatelessWidget {
   final _name = TextEditingController();
   final _phoneNumber = TextEditingController();
   final _floorNumber = TextEditingController();
-  final _timeRetrieve = TextEditingController();
+  String? _timeRetrieve;
   final _detailLocation = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -28,6 +29,15 @@ class SaveDestinationScreen extends StatelessWidget {
         ),
         onPressed: () {
           // save location info
+          if (formKey.currentState!.validate()) {
+            final model = Location(
+              name: _name.text.trim(),
+              phoneNumber: _phoneNumber.text.trim(),
+              floorNumber: _floorNumber.text.trim(),
+              retrieveTime: _timeRetrieve?.trim(),
+              detailLocation: _detailLocation.text.trim(),
+            );
+          }
         },
         backgroundColor: Color(0xffFC7115),
       ),
@@ -64,9 +74,19 @@ class SaveDestinationScreen extends StatelessWidget {
                     hint: "Floor Number",
                     controller: _floorNumber,
                   ),
-                  MyTextField(
-                    hint: "Retrieve Time",
-                    controller: _timeRetrieve,
+                  DropdownButtonFormField<String>(
+                    hint: Text("Retrieve Time"),
+                    value: _timeRetrieve,
+                    items: <String>['09:00', '11:00', '13:00', '14:00']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      _timeRetrieve = newValue;
+                    },
                   ),
                   MyTextField(
                     hint: "Detail Location",

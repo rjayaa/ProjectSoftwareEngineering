@@ -214,69 +214,6 @@ class _CartScreenState extends State<CartScreen> {
               },
             ),
           ),
-
-          // SliverToBoxAdapter(
-          //   child: Consumer2<TotalAmount, CartItemCounter>(
-          //     builder: (context, amountProvider, cartProvider, c) {
-          //       return Padding(
-          //         padding: const EdgeInsets.all(8),
-          //         child: Center(
-          //           child: cartProvider.count == 0
-          //               ? Container()
-          //               : Container(
-          //                   child: Row(
-          //                     children: [
-          //                       DropdownButton<int>(
-          //                         value: selectedQuantity,
-          //                         onChanged: (newValue) {
-          //                           setState(() {
-          //                             selectedQuantity = newValue!;
-          //                             quantityController.text =
-          //                                 selectedQuantity.toString();
-          //                           });
-          //                         },
-          //                         items: List.generate(5, (index) => index + 1)
-          //                             .map((value) => DropdownMenuItem<int>(
-          //                                   value: value,
-          //                                   child: Text(
-          //                                     value.toString(),
-          //                                     style: TextStyle(
-          //                                       color: Colors.red,
-          //                                       fontSize: 16,
-          //                                       fontFamily: "Poppins",
-          //                                     ),
-          //                                   ),
-          //                                 ))
-          //                             .toList(),
-          //                       ),
-          //                       TextField(
-          //                         controller: quantityController,
-          //                         decoration: InputDecoration(
-          //                           labelText: 'Lantai',
-          //                         ),
-          //                         onChanged: (value) {
-          //                           setState(() {
-          //                             selectedQuantity = int.parse(value);
-          //                           });
-          //                         },
-          //                       ),
-          //                       Text(
-          //                         "Total Price: " +
-          //                             amountProvider.tAmount.toString(),
-          //                         style: const TextStyle(
-          //                           color: Colors.black,
-          //                           fontSize: 18,
-          //                           fontWeight: FontWeight.w300,
-          //                         ),
-          //                       ),
-          //                     ],
-          //                   ),
-          //                 ),
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );
