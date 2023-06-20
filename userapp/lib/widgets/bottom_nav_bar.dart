@@ -19,14 +19,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
     // Perform navigation or other operations based on the selected index
     switch (index) {
       case 0:
-      // Navigate to the search page
         Navigator.pushNamed(context, '/home');
+        // Navigate to the search page
         break;
       case 1:
-      // Navigate to the current order page
+      // Navigate to the shop page
         break;
       case 2:
-      // Navigate to the history page
+      // Navigate to the cart page
         break;
       case 3:
       // Logout userr
@@ -63,15 +63,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.watch_later),
-          label: 'Current Orders',
+          label: 'Shop',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.pending_actions),
-          label: 'History',
+          label: 'Cart',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.exit_to_app,),
-          label: 'Logout',
+          label: 'History',
         ),
       ],
     );

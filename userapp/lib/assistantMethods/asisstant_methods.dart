@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:userapp/assistantMethods/cart_item_counter.dart';
 import 'package:userapp/global/global.dart';
 
+import '../splashscreen/splash_screen.dart';
+
 separateItemIDs() {
   List<String> separateItemIDsList = [], defaultItemList = [];
   int i = 0;

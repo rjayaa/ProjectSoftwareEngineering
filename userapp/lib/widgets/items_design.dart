@@ -23,39 +23,50 @@ class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
       },
       splashColor: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+        padding: const EdgeInsets.all(16.0),
         child: Container(
+          height: 265,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(15),
-                child: Image.network(
-                  widget.model!.thumbnailUrl!,
-                  height: 150.0,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  fit: BoxFit.cover,
-                ),
+              Divider(
+                height: 20,
+                thickness: 3,
+                color: Colors.grey[300],
+              ),
+              Image.network(
+                widget.model!.thumbnailUrl!,
+                height: 150.0,
+                fit: BoxFit.cover,
               ),
               const SizedBox(
                 height: 10.0,
               ),
               Text(
                 widget.model!.title!,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: "Inter",
-                  fontWeight: FontWeight.bold,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontFamily: "Roboto",
                 ),
+              ),
+              Divider(
+                height: 1,
+                thickness: 3,
+                color: Colors.grey[300],
               ),
               Text(
                 widget.model!.shortInfo!,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: "Inter",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontFamily: "Roboto",
                 ),
+              ),
+              Divider(
+                height: 1,
+                thickness: 3,
+                color: Colors.grey[300],
               ),
             ],
           ),
