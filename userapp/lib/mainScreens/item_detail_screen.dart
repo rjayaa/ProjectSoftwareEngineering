@@ -61,10 +61,9 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               child: Text(
                 widget.model!.title.toString(),
                 style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white),
               ),
             ),
             Padding(
@@ -72,10 +71,9 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               child: Text(
                 widget.model!.shortInfo.toString(),
                 style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    color: Colors.white),
               ),
             ),
             Padding(
@@ -83,13 +81,12 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               child: Text(
                 widget.model!.price.toString(),
                 style: const TextStyle(
-                  fontWeight: FontWeight.normal,
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    color: Colors.white),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(3.0),
               child: Center(

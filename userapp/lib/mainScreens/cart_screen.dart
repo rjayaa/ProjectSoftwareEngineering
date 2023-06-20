@@ -37,6 +37,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff272727),
       // appBar: MyAppBar(sellerUID: widget.sellerUID),
       appBar: AppBar(
         toolbarHeight: 60,
@@ -45,14 +46,11 @@ class _CartScreenState extends State<CartScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            clearCartNow(context);
-            Navigator.push(
-                context, MaterialPageRoute(builder: (c) => const HomeScreen()));
-            Fluttertoast.showToast(msg: "Cart has been cleared.");
+            Navigator.pop(context);
           },
         ),
         title: const Text(
-          "CanteenCartSuneo",
+          "CanteenCartSunib",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
@@ -198,10 +196,10 @@ class _CartScreenState extends State<CartScreen> {
                               children: [
                                 SizedBox(height: 10),
                                 Text(
-                                  "Total Price: " +
+                                  "Total Price: Rp." +
                                       amountProvider.tAmount.toString(),
                                   style: const TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     fontSize: 18,
                                     fontWeight: FontWeight.w300,
                                   ),

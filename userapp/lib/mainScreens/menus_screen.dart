@@ -64,22 +64,22 @@ class _MenusScreenState extends State<MenusScreen> {
             Expanded(
               child: _isSearchBarVisible
                   ? Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: TextField(
-                        controller: _searchController,
-                        focusNode: _searchFocusNode,
-                        style: TextStyle(color: Colors.black),
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          hintStyle: TextStyle(color: Colors.black),
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 16),
-                        ),
-                      ),
-                    )
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  focusNode: _searchFocusNode,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Colors.black),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                ),
+              )
                   : SizedBox(),
             ),
             IconButton(
@@ -112,25 +112,24 @@ class _MenusScreenState extends State<MenusScreen> {
               builder: (context, snapshot) {
                 return !snapshot.hasData
                     ? SliverToBoxAdapter(
-                        child: Center(
-                          child: circularProgress(),
-                        ),
-                      )
+                  child: Center(
+                    child: circularProgress(),
+                  ),
+                )
                     : SliverStaggeredGrid.countBuilder(
-                        crossAxisCount: 1,
-                        staggeredTileBuilder: (c) => StaggeredTile.fit(1),
-                        itemBuilder: (context, index) {
-                          Menus model = Menus.fromJson(
-                            snapshot.data!.docs[index].data()!
-                                as Map<String, dynamic>,
-                          );
-                          return MenusDesignWidget(
-                            model: model,
-                            context: context,
-                          );
-                        },
-                        itemCount: snapshot.data!.docs.length,
-                      );
+                  crossAxisCount: 1,
+                  staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                  itemBuilder: (context, index) {
+                    Menus model = Menus.fromJson(
+                      snapshot.data!.docs[index].data()! as Map<String, dynamic>,
+                    );
+                    return MenusDesignWidget(
+                      model: model,
+                      context: context,
+                    );
+                  },
+                  itemCount: snapshot.data!.docs.length,
+                );
               },
             ),
           ],

@@ -42,25 +42,25 @@ class _ItemsScreenState extends State<ItemsScreen> {
               builder: (context, snapshot) {
                 return !snapshot.hasData
                     ? SliverToBoxAdapter(
-                        child: Center(
-                          child: circularProgress(),
-                        ),
-                      )
+                  child: Center(
+                    child: circularProgress(),
+                  ),
+                )
                     : SliverStaggeredGrid.countBuilder(
-                        crossAxisCount: 1,
-                        staggeredTileBuilder: (c) => StaggeredTile.fit(1),
-                        itemBuilder: (context, index) {
-                          Items model = Items.fromJson(
-                            snapshot.data!.docs[index].data()!
-                                as Map<String, dynamic>,
-                          );
-                          return ItemsDesignWidget(
-                            model: model,
-                            context: context,
-                          );
-                        },
-                        itemCount: snapshot.data!.docs.length,
-                      );
+                  crossAxisCount: 1,
+                  staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                  itemBuilder: (context, index) {
+                    Items model = Items.fromJson(
+                      snapshot.data!.docs[index].data()!
+                      as Map<String, dynamic>,
+                    );
+                    return ItemsDesignWidget(
+                      model: model,
+                      context: context,
+                    );
+                  },
+                  itemCount: snapshot.data!.docs.length,
+                );
               },
             )
           ],
