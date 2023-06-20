@@ -6,8 +6,10 @@ import 'package:userapp/widgets/sellers_design.dart';
 
 import 'package:userapp/widgets/progress_bar.dart';
 
-import '../global/global.dart';
 import '../widgets/bottom_nav_bar.dart';
+
+// import '../global/global.dart';
+// import '../widgets/bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

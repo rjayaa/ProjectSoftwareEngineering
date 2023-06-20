@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
-
-  SimpleAppBar({this.bottom});
+  String? title;
+  SimpleAppBar({this.bottom, this.title});
 
   @override
   Size get preferredSize => bottom == null
@@ -23,8 +23,8 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           //     context, MaterialPageRoute(builder: (c) => CartScreen()));
         },
       ),
-      title: const Text(
-        "CanteenCartSunab",
+      title: Text(
+        title!,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16,
