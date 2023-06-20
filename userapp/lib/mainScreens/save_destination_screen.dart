@@ -31,7 +31,7 @@ class SaveDestinationScreen extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          // save location info
+          // save location infoo
           if (formKey.currentState!.validate()) {
             final model = Location(
               name: _name.text.trim(),
