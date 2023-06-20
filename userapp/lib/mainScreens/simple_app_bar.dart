@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:userapp/mainScreens/home_screen.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
@@ -18,7 +19,9 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          Navigator.pop(context);
+          // clearCartNow(context);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (c) => const HomeScreen()));
         },
       ),
       title: Text(

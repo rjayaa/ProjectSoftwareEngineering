@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/mainScreens/order_details_screen.dart';
 import 'package:userapp/models/items.dart';
 
 class OrderCard extends StatelessWidget {
@@ -19,6 +20,12 @@ class OrderCard extends StatelessWidget {
     return InkWell(
       onTap: () {
         // todo
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (c) => OrderDetailsScreen(
+                      orderID: orderID,
+                    )));
       },
       child: Container(
         color: Color.fromARGB(255, 64, 64, 64),
@@ -84,7 +91,7 @@ Widget placedOrderDesignWidget(
                   Text(
                     model.price.toString(),
                     style: const TextStyle(
-                      color: Colors.red,
+                      color: Color(0xffFC7115),
                       fontSize: 18,
                     ),
                   ),
