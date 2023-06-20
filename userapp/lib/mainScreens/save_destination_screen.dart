@@ -7,6 +7,7 @@ class SaveDestinationScreen extends StatelessWidget {
   final _name = TextEditingController();
   final _phoneNumber = TextEditingController();
   final _floorNumber = TextEditingController();
+  final _timeRetrieve = TextEditingController();
   final _detailLocation = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -15,6 +16,21 @@ class SaveDestinationScreen extends StatelessWidget {
     return Scaffold(
       appBar: SimpleAppBar(),
       backgroundColor: Color(0xff272727),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: const Icon(Icons.check),
+        label: const Text(
+          "Save Now",
+          style: TextStyle(
+            fontFamily: "Poppins",
+            fontWeight: FontWeight.bold,
+            fontSize: 13,
+          ),
+        ),
+        onPressed: () {
+          // save location info
+        },
+        backgroundColor: Color(0xffFC7115),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -33,35 +49,35 @@ class SaveDestinationScreen extends StatelessWidget {
               ),
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.person_pin_circle,
-                color: Colors.white,
+                color: Colors.white60,
                 size: 35,
               ),
               title: Container(
                 width: 250,
                 child: TextField(
-                  style: TextStyle(
-                    color: Colors.white,
+                  style: const TextStyle(
+                    color: Colors.white60,
                   ),
                   controller: _detailLocation,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Detail Location...",
                     hintStyle: TextStyle(
-                      color: Colors.white,
+                      color: Colors.white60,
                     ),
                   ),
                 ),
               ),
             ),
             ElevatedButton.icon(
-              label: Text(
+              label: const Text(
                 "Get My Location",
-                style: TextStyle(color: Colors.white, fontFamily: "Poppins"),
+                style: TextStyle(color: Colors.black, fontFamily: "Poppins"),
               ),
-              icon: Icon(
+              icon: const Icon(
                 Icons.location_on,
-                color: Colors.white,
+                color: Colors.black,
               ),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -90,6 +106,10 @@ class SaveDestinationScreen extends StatelessWidget {
                   MyTextField(
                     hint: "Floor Number",
                     controller: _floorNumber,
+                  ),
+                  MyTextField(
+                    hint: "Retrieve Time",
+                    controller: _timeRetrieve,
                   ),
                   MyTextField(
                     hint: "Detail Location",

@@ -196,62 +196,6 @@ class _CartScreenState extends State<CartScreen> {
                         : Container(
                             child: Column(
                               children: [
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextField(
-                                        controller: quantityController,
-                                        decoration: InputDecoration(
-                                          labelText: 'Lantai',
-                                        ),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedQuantity = int.parse(value);
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    DropdownButton<int>(
-                                      value: -1,
-                                      onChanged: (newValue) {
-                                        setState(() {
-                                          selectedQuantity = newValue!;
-                                          quantityController.text =
-                                              selectedQuantity.toString();
-                                        });
-                                      },
-                                      items: [
-                                        DropdownMenuItem<int>(
-                                          value: -1,
-                                          child: Text(
-                                            "Pilih Lantai",
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                              fontSize: 16,
-                                              fontFamily: "Poppins",
-                                            ),
-                                          ),
-                                        ),
-                                        ...List.generate(
-                                                5, (index) => index + 1)
-                                            .map((value) =>
-                                                DropdownMenuItem<int>(
-                                                  value: value,
-                                                  child: Text(
-                                                    value.toString(),
-                                                    style: TextStyle(
-                                                      color: Colors.red,
-                                                      fontSize: 16,
-                                                      fontFamily: "Poppins",
-                                                    ),
-                                                  ),
-                                                ))
-                                            .toList(),
-                                      ],
-                                    ),
-                                  ],
-                                ),
                                 SizedBox(height: 10),
                                 Text(
                                   "Total Price: " +
