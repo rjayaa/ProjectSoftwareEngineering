@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:userapp/global/global.dart';
 
 import '../authentication/auth_screen.dart';
+import '../global/global.dart';
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -20,7 +20,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     switch (index) {
       case 0:
         Navigator.pushNamed(context, '/home');
-      // Navigate to the search page
+        // Navigate to the search page
         break;
       case 1:
       // Navigate to the shop page
@@ -29,7 +29,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
       // Navigate to the cart page
         break;
       case 3:
-      // Navigate to the history page
+      // Logout user
+        firebaseAuth.signOut().then(
+              (value) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (c) => const AuthScreen()));
+          },
+        );
         break;
     }
   }
@@ -43,7 +51,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       showUnselectedLabels: false,
       selectedFontSize: 12,
       unselectedFontSize: 12,
-      selectedIconTheme: IconThemeData(size: 28),
+      selectedIconTheme: IconThemeData(size: 28, color: Colors.orange),
       unselectedIconTheme: IconThemeData(size: 24),
       unselectedItemColor: Colors.white,
       currentIndex: _selectedIndex,
@@ -62,7 +70,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: 'Cart',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.alarm_add),
+          icon: Icon(Icons.exit_to_app,),
           label: 'History',
         ),
       ],

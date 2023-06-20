@@ -5,6 +5,7 @@ import 'package:userapp/assistantMethods/cart_item_counter.dart';
 import 'package:userapp/splashscreen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'global/global.dart';
+import 'mainScreens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const MySplashScreen(),
+        routes: {
+          '/home': (context) => HomeScreen(),
+          '/tes': (context) => Container(),
+          // Define other routes here
+        },
       ),
     );
   }
