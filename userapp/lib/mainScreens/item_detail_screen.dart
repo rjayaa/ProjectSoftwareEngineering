@@ -26,7 +26,15 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
         color: Color(0xff272727),
         child: Column(
           children: [
-            Image.network(widget.model!.thumbnailUrl.toString()),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(15),
+              child: Image.network(
+                widget.model!.thumbnailUrl!,
+                height: 200.0,
+                width: MediaQuery.of(context).size.width * 0.8,
+                fit: BoxFit.cover,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(35.0),
               child: NumberInputPrefabbed.roundedButtons(
