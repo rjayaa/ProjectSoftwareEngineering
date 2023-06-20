@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:userapp/global/global.dart';
+import 'package:userapp/mainScreens/simple_app_bar.dart';
 import 'package:userapp/models/location.dart';
 
 import '../widgets/text_field.dart';

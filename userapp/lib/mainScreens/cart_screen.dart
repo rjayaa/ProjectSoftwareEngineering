@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/assistantMethods/asisstant_methods.dart';
-import 'package:userapp/widgets/app_bar.dart';
+import 'package:userapp/assistantMethods/total_amount.dart';
+import 'package:userapp/mainScreens/destination_screen.dart';
+import 'package:userapp/models/items.dart';
+import 'package:userapp/widgets/cart_item_design.dart';
+import 'package:userapp/widgets/progress_bar.dart';
 
 import '../assistantMethods/cart_item_counter.dart';
-import '../models/Items.dart';
 import '../splashscreen/splash_screen.dart';
-import '../widgets/progress_bar.dart';
 import '../widgets/text_widget_header.dart';
 
 class CartScreen extends StatefulWidget {
@@ -19,10 +21,16 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  List<int>? separateItemQuantityList;
+  TextEditingController quantityController = TextEditingController();
+  num totalAmount = 0;
   @override
   void initState() {
     super.initState();
-    separateItemQuantities();
+    totalAmount = 0;
+    Provider.of<TotalAmount>(context, listen: false).displayTotalAmount(0);
+
+    separateItemQuantityList = separateItemQuantities();
   }
 
   @override
@@ -58,7 +66,7 @@ class _CartScreenState extends State<CartScreen> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Align(
@@ -73,7 +81,13 @@ class _CartScreenState extends State<CartScreen> {
               ),
               backgroundColor: const Color(0xffFC7115),
               icon: const Icon(Icons.clear_all),
-              onPressed: () {},
+              onPressed: () {
+                clearCartNow(context);
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (c) => const MySplashScreen()));
+                Fluttertoast.showToast(msg: "Cart has been cleared.");
+              },
             ),
           ),
           Align(
@@ -88,7 +102,15 @@ class _CartScreenState extends State<CartScreen> {
               ),
               backgroundColor: const Color(0xffFC7115),
               icon: const Icon(Icons.navigate_next),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (c) => DestinationScreen(
+                              totalAmount: totalAmount.toDouble(),
+                              sellerUID: widget.sellerUID,
+                            )));
+              },
             ),
           ),
         ],
