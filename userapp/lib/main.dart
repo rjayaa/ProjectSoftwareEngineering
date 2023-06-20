@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const MySplashScreen(),
+
         routes: {
           '/home': (context) => HomeScreen(),
           '/tes': (context) => Container(),

@@ -53,15 +53,15 @@ class _ItemsScreenState extends State<ItemsScreen> {
                     Items model = Items.fromJson(
                       snapshot.data!.docs[index].data()!
                       as Map<String, dynamic>,
-                    );
-                    return ItemsDesignWidget(
-                      model: model,
-                      context: context,
+                        );
+                        return ItemsDesignWidget(
+                          model: model,
+                          context: context,
+                        );
+                      },
+                      itemCount: snapshot.data!.docs.length,
                     );
                   },
-                  itemCount: snapshot.data!.docs.length,
-                );
-              },
             )
           ],
         ),
