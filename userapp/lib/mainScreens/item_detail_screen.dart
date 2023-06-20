@@ -59,7 +59,8 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.white),
+                    color: Colors.white
+                ),
               ),
             ),
             Padding(
@@ -69,7 +70,8 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
-                    color: Colors.white),
+                    color: Colors.white
+                ),
               ),
             ),
             Padding(
@@ -79,26 +81,26 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 style: const TextStyle(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
-                    color: Colors.white),
+                    color: Colors.white
+                ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20
+            ),
             Padding(
               padding: const EdgeInsets.all(3.0),
               child: Center(
                 child: InkWell(
                   onTap: () {
-                    int itemCounter =
-                        int.parse(counterTextEditingController.text);
+                    int itemCounter = int.parse(counterTextEditingController.text);
                     // 1. check if item exist already in cart
                     List<String> separateItemIDsList = separateItemIDs();
                     separateItemIDsList.contains(widget.model!.itemID)
-                        ? Fluttertoast.showToast(
-                            msg: "Item is already in Cart.")
+                        ? Fluttertoast.showToast(msg: "Item is already in Cart.")
                         :
-                        // 2. add to cart
-                        addItemToCart(
-                            widget.model!.itemID, context, itemCounter);
+                    // 2. add to cart
+                    addItemToCart(widget.model!.itemID, context, itemCounter);
                   },
                   child: Container(
                     decoration: const BoxDecoration(

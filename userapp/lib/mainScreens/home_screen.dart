@@ -1,9 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:userapp/models/sellers.dart';
 import 'package:userapp/widgets/sellers_design.dart';
-
+import 'package:userapp/widgets/my_drawer.dart';
 import 'package:userapp/widgets/progress_bar.dart';
 
 import '../global/global.dart';
@@ -62,33 +63,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: CustomScrollView(
                   slivers: [
                     StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection("sellers")
-                          .snapshots(),
+                      stream: FirebaseFirestore.instance.collection("sellers").snapshots(),
                       builder: (context, snapshot) {
                         return !snapshot.hasData
                             ? SliverToBoxAdapter(
-                                child: Center(
-                                  child: circularProgress(),
-                                ),
-                              )
+                          child: Center(
+                            child: circularProgress(),
+                          ),
+                        )
                             : SliverStaggeredGrid.countBuilder(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                staggeredTileBuilder: (c) =>
-                                    StaggeredTile.count(1, 1.6),
-                                itemBuilder: (context, index) {
-                                  Sellers sModel = Sellers.fromJson(
-                                      snapshot.data!.docs[index].data()!
-                                          as Map<String, dynamic>);
-                                  return SellersDesignWidget(
-                                    model: sModel,
-                                    context: context,
-                                  );
-                                },
-                                itemCount: snapshot.data!.docs.length,
-                              );
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 8,
+                          crossAxisSpacing: 8,
+                          staggeredTileBuilder: (c) => StaggeredTile.count(1, 1.6),
+                          itemBuilder: (context, index) {
+                            Sellers sModel = Sellers.fromJson(
+                                snapshot.data!.docs[index].data()! as Map<String, dynamic>);
+                            return SellersDesignWidget(
+                              model: sModel,
+                              context: context,
+                            );
+                          },
+                          itemCount: snapshot.data!.docs.length,
+                        );
                       },
                     ),
                   ],
