@@ -4,7 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/assistantMethods/asisstant_methods.dart';
 import 'package:userapp/assistantMethods/total_amount.dart';
-import 'package:userapp/mainScreens/destination_screen.dart';
+import 'package:userapp/mainScreens/location_screen.dart';
+import 'package:userapp/mainScreens/home_screen.dart';
 import 'package:userapp/models/items.dart';
 import 'package:userapp/widgets/cart_item_design.dart';
 import 'package:userapp/widgets/progress_bar.dart';
@@ -42,11 +43,11 @@ class _CartScreenState extends State<CartScreen> {
         backgroundColor: Color(0xff272727),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.clear_all),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             clearCartNow(context);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (c) => const MySplashScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (c) => const HomeScreen()));
             Fluttertoast.showToast(msg: "Cart has been cleared.");
           },
         ),

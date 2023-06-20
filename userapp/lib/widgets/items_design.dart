@@ -47,7 +47,7 @@ class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 20,
-                  fontFamily: "Roboto",
+                  fontFamily: "Poppins",
                 ),
               ),
               Divider(
@@ -60,7 +60,7 @@ class _ItemsDesignWidgetState extends State<ItemsDesignWidget> {
                 style: TextStyle(
                   color: Colors.red,
                   fontSize: 20,
-                  fontFamily: "Roboto",
+                  fontFamily: "Poppins",
                 ),
               ),
               Divider(
