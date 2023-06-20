@@ -18,13 +18,11 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
         onPressed: () {
-          // clearCartNow(context);
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (c) => CartScreen()));
+          Navigator.pop(context);
         },
       ),
       title: const Text(
-        "CanteenCartSunab",
+        "CanteenCartSunib",
         style: const TextStyle(
           color: Colors.white,
           fontSize: 16,

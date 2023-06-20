@@ -43,16 +43,13 @@ class _CartScreenState extends State<CartScreen> {
         backgroundColor: Color(0xff272727),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.clear_all),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            clearCartNow(context);
-            Navigator.push(context,
-                MaterialPageRoute(builder: (c) => const MySplashScreen()));
-            Fluttertoast.showToast(msg: "Cart has been cleared.");
+            Navigator.pop(context);
           },
         ),
         title: const Text(
-          "CanteenCartSuneo",
+          "CanteenCartSunib",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
