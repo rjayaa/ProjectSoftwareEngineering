@@ -22,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     switch (index) {
       case 0:
         Navigator.push(
-            context, MaterialPageRoute(builder: (c) => HomeScreen()));
+            context, MaterialPageRoute(builder: (c) => const HomeScreen()));
         // Navigate to the search page
         break;
       case 1:
