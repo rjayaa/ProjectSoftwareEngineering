@@ -30,14 +30,14 @@ class _MyAppBarState extends State<MyAppBar> {
           Navigator.pop(context);
         },
       ),
-      // title: const Text(
-      //   "CanteenCartSunib",
-      //   style: const TextStyle(
-      //     color: Colors.white,
-      //     fontSize: 16,
-      //     fontFamily: "Poppins",
-      //   ),
-      // ),
+      title: const Text(
+        "CanteenCartSunib",
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontFamily: "Poppins",
+        ),
+      ),
       iconTheme: const IconThemeData(
         color: Colors.white,
       ),
@@ -63,19 +63,17 @@ class _MyAppBarState extends State<MyAppBar> {
                 const Icon(
                   Icons.brightness_1,
                   size: 20.0,
-                  color: Colors.orange,
+                  color: Colors.green,
                 ),
                 Positioned(
-                  top: 2,
-                  right: 6,
+                  top: 3,
+                  right: 4,
                   child: Center(
                     child: Consumer<CartItemCounter>(
                         builder: (context, counter, c) {
                       return Text(
                         counter.count.toString(),
-                        style: const TextStyle(
-                            fontSize: 12
-                        ),
+                        style: const TextStyle(fontSize: 12),
                       );
                     }),
                   ),
