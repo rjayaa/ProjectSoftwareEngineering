@@ -21,7 +21,7 @@ class _CartItemDesignState extends State<CartItemDesign> {
     return InkWell(
       splashColor: Colors.blueGrey,
       child: Padding(
-        padding: const EdgeInsets.all(6.0),
+        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
         child: Container(
           height: 85,
           width: MediaQuery.of(context).size.width,
@@ -38,9 +38,10 @@ class _CartItemDesignState extends State<CartItemDesign> {
                   Text(
                     widget.model!.title!,
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Colors.white,
                       fontSize: 16,
-                      fontFamily: "Poppins",
+                      fontFamily: "Inter",
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(
@@ -52,17 +53,17 @@ class _CartItemDesignState extends State<CartItemDesign> {
                       Text(
                         "x ",
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 16,
-                          fontFamily: "Poppins",
+                          fontFamily: "Inter",
                         ),
                       ),
                       Text(
                         widget.quanNumber.toString(),
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 16,
-                          fontFamily: "Poppins",
+                          fontFamily: "Inter",
                         ),
                       ),
                     ],
@@ -73,17 +74,17 @@ class _CartItemDesignState extends State<CartItemDesign> {
                       const Text(
                         "Rp.",
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 16,
-                          fontFamily: "Poppins",
+                          fontFamily: "Inter",
                         ),
                       ),
                       Text(
                         widget.model!.price.toString(),
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Colors.white,
                           fontSize: 16,
-                          fontFamily: "Poppins",
+                          fontFamily: "Inter",
                         ),
                       ),
                     ],
