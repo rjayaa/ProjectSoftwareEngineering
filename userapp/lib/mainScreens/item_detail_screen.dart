@@ -25,6 +25,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       body: Container(
         color: Color(0xff272727),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
@@ -35,31 +36,35 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 fit: BoxFit.cover,
               ),
             ),
+            const SizedBox(height: 35.0),
             Padding(
-              padding: const EdgeInsets.all(35.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: NumberInputPrefabbed.roundedButtons(
                 style: TextStyle(color: Colors.white),
                 controller: counterTextEditingController,
                 numberFieldDecoration: InputDecoration(
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
-                incDecBgColor: Color(0xffFC7115),
+                incDecBgColor: Colors.white,
                 incIconColor: Colors.white,
                 decIconColor: Colors.white,
                 min: 1,
                 max: 5,
+                initialValue: 1,
               ),
             ),
+            const SizedBox(height: 8.0),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 widget.model!.title.toString(),
                 style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.white),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
               ),
             ),
             Padding(
@@ -67,9 +72,10 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               child: Text(
                 widget.model!.shortInfo.toString(),
                 style: const TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                    color: Colors.white),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
             Padding(
@@ -77,12 +83,13 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               child: Text(
                 widget.model!.price.toString(),
                 style: const TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 16,
-                    color: Colors.white),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(3.0),
               child: Center(
@@ -105,7 +112,6 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       color: Color(0xffFC7115),
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
-                    width: MediaQuery.of(context).size.width - 60,
                     height: 50,
                     child: const Center(
                       child: Text(
