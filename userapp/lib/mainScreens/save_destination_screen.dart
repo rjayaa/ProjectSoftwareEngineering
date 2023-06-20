@@ -10,7 +10,7 @@ import '../widgets/text_field.dart';
 class SaveDestinationScreen extends StatelessWidget {
   final _name = TextEditingController();
   final _phoneNumber = TextEditingController();
-  final _floorNumber = TextEditingController();
+  String? _floorNumber;
   String? _timeRetrieve;
   final _detailLocation = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -36,7 +36,7 @@ class SaveDestinationScreen extends StatelessWidget {
             final model = Location(
               name: _name.text.trim(),
               phoneNumber: _phoneNumber.text.trim(),
-              floorNumber: _floorNumber.text.trim(),
+              floorNumber: _floorNumber?.trim(),
               retrieveTime: _timeRetrieve?.trim(),
               detailLocation: _detailLocation.text.trim(),
             ).toJson();
@@ -76,22 +76,15 @@ class SaveDestinationScreen extends StatelessWidget {
               child: Column(
                 children: [
                   MyTextField(
-                    hint: "Name",
+                    hint: "Nama",
                     controller: _name,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
                   MyTextField(
-                    hint: "Phone Number",
+                    hint: "No. HP",
                     controller: _phoneNumber,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MyTextField(
-                    hint: "Floor Number",
-                    controller: _floorNumber,
                   ),
                   const SizedBox(
                     height: 10,
@@ -101,7 +94,41 @@ class SaveDestinationScreen extends StatelessWidget {
                     child: DropdownButtonFormField<String>(
                       isExpanded: true,
                       hint: const Text(
-                        "Retrieve Time",
+                        "Lantai",
+                        style: TextStyle(color: Colors.white70),
+                      ),
+                      value: _floorNumber,
+                      dropdownColor:
+                          Color(0xff272727), // Warna dropdown saat dibuka
+                      items: <String>['G', '1', '2', '3', '4', '5']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: TextStyle(
+                              color: _floorNumber == value
+                                  ? Colors.white70
+                                  : Colors
+                                      .white70, // Warna putih saat item dipilih
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (newValue) {
+                        _floorNumber = newValue;
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 8),
+                    child: DropdownButtonFormField<String>(
+                      isExpanded: true,
+                      hint: const Text(
+                        "Jadwal Diterima",
                         style: TextStyle(color: Colors.white70),
                       ),
                       value: _timeRetrieve,
@@ -137,7 +164,7 @@ class SaveDestinationScreen extends StatelessWidget {
                     height: 10,
                   ),
                   MyTextField(
-                    hint: "Detail Location",
+                    hint: "Detail Ruangan/Tempat",
                     controller: _detailLocation,
                   ),
                 ],
