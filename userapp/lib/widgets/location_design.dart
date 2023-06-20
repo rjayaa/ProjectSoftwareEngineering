@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:userapp/assistantMethods/location_changer.dart';
+import 'package:userapp/mainScreens/placed_order_screen.dart';
 import 'package:userapp/models/location.dart';
 
 class LocationDesign extends StatefulWidget {
@@ -132,7 +133,16 @@ class _LocationDesignState extends State<LocationDesign> {
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xffFC7115),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (c) => PlaceOrderScreen(
+                                    locationID: widget.locationID,
+                                    totalAmount: widget.totalAmount,
+                                    sellerUID: widget.sellerUID,
+                                  )));
+                    },
                   )
                 : Container(),
           ],
