@@ -42,16 +42,16 @@ class SaveDestinationScreen extends StatelessWidget {
               retrieveTime: _timeRetrieve?.trim(),
               detailLocation: _detailLocation.text.trim(),
             ).toJson();
-            // FirebaseFirestore.instance
-            //     .collection("users")
-            //     .doc(sharedPreferences!.getString("uid"))
-            //     .collection("userLocation")
-            //     .doc(DateTime.now().millisecondsSinceEpoch.toString())
-            //     .set(model)
-            //     .then((value) {
-            //   Fluttertoast.showToast(msg: "New Location has been saved.");
-            //   formKey.currentState!.reset();
-            // });
+            FirebaseFirestore.instance
+                .collection("users")
+                .doc(sharedPreferences!.getString("uid"))
+                .collection("userLocation")
+                .doc(DateTime.now().millisecondsSinceEpoch.toString())
+                .set(model)
+                .then((value) {
+              Fluttertoast.showToast(msg: "New Location has been saved.");
+              formKey.currentState!.reset();
+            });
           }
         },
         backgroundColor: Color(0xffFC7115),
