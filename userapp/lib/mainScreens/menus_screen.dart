@@ -19,65 +19,121 @@ class MenusScreen extends StatefulWidget {
 }
 
 class _MenusScreenState extends State<MenusScreen> {
+  bool _isSearchBarVisible = false;
+  late TextEditingController _searchController;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  void _toggleSearchBar() {
+    setState(() {
+      _isSearchBarVisible = !_isSearchBarVisible;
+      if (_isSearchBarVisible) {
+        FocusScope.of(context).requestFocus(_searchFocusNode);
+      }
+    });
+  }
+
+  final FocusNode _searchFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
       appBar: AppBar(
-        toolbarHeight: 60,
         backgroundColor: Color(0xff272727),
-        centerTitle: true,
-        title: const Text(
-          "CanteenCartSunib",
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontFamily: "Poppins",
-          ),
+        elevation: 0,
+        toolbarHeight: 60,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        iconTheme: const IconThemeData(
-          color: Colors.white,
+        title: Row(
+          children: [
+            Expanded(
+              child: _isSearchBarVisible
+                  ? Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                child: TextField(
+                  controller: _searchController,
+                  focusNode: _searchFocusNode,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    hintStyle: TextStyle(color: Colors.black),
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                  ),
+                ),
+              )
+                  : SizedBox(),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                color: _isSearchBarVisible ? Colors.orange : Colors.white,
+              ),
+              onPressed: _toggleSearchBar,
+            ),
+          ],
         ),
-        automaticallyImplyLeading: true,
       ),
-      body: CustomScrollView(
-        slivers: [
-          SliverPersistentHeader(
+      body: Container(
+        color: Color(0xff272727),
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
               pinned: true,
               delegate: TextWidgetHeader(
-                  title: widget.model!.sellerName.toString() + " Menus")),
-          StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("sellers")
-                .doc(widget.model!.sellersUID)
-                .collection("menus")
-                .orderBy("publishedDate", descending: true)
-                .snapshots(),
-            builder: (context, snapshot) {
-              return !snapshot.hasData
-                  ? SliverToBoxAdapter(
-                      child: Center(
-                        child: circularProgress(),
-                      ),
-                    )
-                  : SliverStaggeredGrid.countBuilder(
-                      crossAxisCount: 1,
-                      staggeredTileBuilder: (c) => StaggeredTile.fit(1),
-                      itemBuilder: (context, index) {
-                        Menus model = Menus.fromJson(
-                          snapshot.data!.docs[index].data()!
-                              as Map<String, dynamic>,
-                        );
-                        return MenusDesignWidget(
-                          model: model,
-                          context: context,
-                        );
-                      },
-                      itemCount: snapshot.data!.docs.length,
+                title: widget.model!.sellerName.toString() + " Menus",
+              ),
+            ),
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("sellers")
+                  .doc(widget.model!.sellersUID)
+                  .collection("menus")
+                  .orderBy("publishedDate", descending: true)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                return !snapshot.hasData
+                    ? SliverToBoxAdapter(
+                  child: Center(
+                    child: circularProgress(),
+                  ),
+                )
+                    : SliverStaggeredGrid.countBuilder(
+                  crossAxisCount: 1,
+                  staggeredTileBuilder: (c) => StaggeredTile.fit(1),
+                  itemBuilder: (context, index) {
+                    Menus model = Menus.fromJson(
+                      snapshot.data!.docs[index].data()! as Map<String, dynamic>,
                     );
-            },
-          )
-        ],
+                    return MenusDesignWidget(
+                      model: model,
+                      context: context,
+                    );
+                  },
+                  itemCount: snapshot.data!.docs.length,
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
