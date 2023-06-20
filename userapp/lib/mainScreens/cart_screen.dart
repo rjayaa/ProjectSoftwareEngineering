@@ -51,7 +51,7 @@ class _CartScreenState extends State<CartScreen> {
           },
         ),
         title: const Text(
-          "CanteenCartSunib",
+          "CanteenCartSuneo",
           style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
