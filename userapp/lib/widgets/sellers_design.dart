@@ -25,35 +25,29 @@ class _SellersDesignWidgetState extends State<SellersDesignWidget> {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Container(
-          height: 265,
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-              Divider(
-                height: 20,
-                thickness: 3,
-                color: Colors.grey[300],
-              ),
-              Image.network(
-                widget.model!.sellerAvatarUrl!,
-                height: 150.0,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Image.network(
+                  widget.model!.sellerAvatarUrl!,
+                  fit: BoxFit.cover,
+                ),
               ),
               const SizedBox(
-                height: 10.0,
+                height: 15.0,
               ),
               Text(
                 widget.model!.sellerName!,
                 style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 20,
+                  color: Colors.white,
+                  fontSize: 16,
                   fontFamily: "Roboto",
                 ),
-              ),
-              Divider(
-                height: 1,
-                thickness: 3,
-                color: Colors.grey[300],
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

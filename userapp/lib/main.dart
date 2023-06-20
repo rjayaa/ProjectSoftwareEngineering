@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:userapp/assistantMethods/cart_item_counter.dart';
-import 'package:userapp/assistantMethods/total_amount.dart';
 import 'package:userapp/splashscreen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'global/global.dart';
+import 'mainScreens/home_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (c) => CartItemCounter()),
-        ChangeNotifierProvider(create: (c) => TotalAmount()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -33,6 +32,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const MySplashScreen(),
+        routes: {
+          '/home': (context) => HomeScreen(),
+          '/tes': (context) => Container(),
+          // Define other routes here
+        },
       ),
     );
   }
