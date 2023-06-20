@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:userapp/assistantMethods/cart_item_counter.dart';
 import 'package:userapp/global/global.dart';
 
-import '../splashscreen/splash_screen.dart';
-
 separateItemIDs() {
   List<String> separateItemIDsList = [], defaultItemList = [];
   int i = 0;
@@ -70,18 +68,4 @@ separateItemQuantities() {
   print(separateItemQuantityList);
 
   return separateItemQuantityList;
-}
-
-clearCartNow(context) {
-  sharedPreferences!.setStringList("userCart", ['garbageValue']);
-  List<String>? emptyList = sharedPreferences!.getStringList("userCart");
-
-  FirebaseFirestore.instance
-      .collection("users")
-      .doc(firebaseAuth.currentUser!.uid)
-      .update({"userCart": emptyList}).then((value) {
-    sharedPreferences!.setStringList("userCart", emptyList!);
-    Provider.of<CartItemCounter>(context, listen: false)
-        .displayCartListItemsNumber();
-  });
 }
