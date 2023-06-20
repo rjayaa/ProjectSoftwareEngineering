@@ -40,56 +40,13 @@ class SaveDestinationScreen extends StatelessWidget {
                 child: Text(
                   "Save Location",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.white60,
                     fontFamily: "Poppins",
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: const Icon(
-                Icons.person_pin_circle,
-                color: Colors.white60,
-                size: 35,
-              ),
-              title: Container(
-                width: 250,
-                child: TextField(
-                  style: const TextStyle(
-                    color: Colors.white60,
-                  ),
-                  controller: _detailLocation,
-                  decoration: const InputDecoration(
-                    hintText: "Detail Location...",
-                    hintStyle: TextStyle(
-                      color: Colors.white60,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            ElevatedButton.icon(
-              label: const Text(
-                "Get My Location",
-                style: TextStyle(color: Colors.black, fontFamily: "Poppins"),
-              ),
-              icon: const Icon(
-                Icons.location_on,
-                color: Colors.black,
-              ),
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    side: BorderSide(color: Color(0xffFC7115)),
-                  ),
-                ),
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Color(0xffFC7115)),
-              ),
-              onPressed: () {},
             ),
             Form(
               key: formKey,
