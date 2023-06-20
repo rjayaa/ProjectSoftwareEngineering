@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:userapp/assistantMethods/asisstant_methods.dart';
 import 'package:userapp/models/Menus.dart';
 import 'package:userapp/models/sellers.dart';
 
 import 'package:userapp/widgets/menus_design.dart';
 
+import '../splashscreen/splash_screen.dart';
 import '../widgets/my_drawer.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/text_widget_header.dart';
@@ -48,8 +51,19 @@ class _MenusScreenState extends State<MenusScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MyDrawer(),
       appBar: AppBar(
+<<<<<<< HEAD
+=======
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            clearCartNow(context);
+            Navigator.push(context,
+                MaterialPageRoute(builder: (c) => const MySplashScreen()));
+          },
+        ),
+        toolbarHeight: 60,
+>>>>>>> main
         backgroundColor: Color(0xff272727),
         elevation: 0,
         toolbarHeight: 60,
