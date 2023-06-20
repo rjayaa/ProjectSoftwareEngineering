@@ -1,5 +1,3 @@
-import 'dart:js_interop';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -102,7 +100,7 @@ class SaveDestinationScreen extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: 8),
                     child: DropdownButtonFormField<String>(
                       isExpanded: true,
-                      hint: Text(
+                      hint: const Text(
                         "Retrieve Time",
                         style: TextStyle(color: Colors.white70),
                       ),

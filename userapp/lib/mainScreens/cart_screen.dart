@@ -35,7 +35,6 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var selectedQuantity;
     return Scaffold(
       // appBar: MyAppBar(sellerUID: widget.sellerUID),
       appBar: AppBar(
@@ -141,7 +140,7 @@ class _CartScreenState extends State<CartScreen> {
                           child: circularProgress(),
                         ),
                       )
-                    : snapshot.data!.docs.length == 0
+                    : snapshot.data!.docs.isEmpty
                         ? // startBuildingCart()
                         Container()
                         : SliverList(
