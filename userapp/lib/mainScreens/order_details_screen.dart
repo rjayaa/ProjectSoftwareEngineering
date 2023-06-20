@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:userapp/models/location.dart';
 import 'package:userapp/widgets/progress_bar.dart';
 import 'package:userapp/widgets/status_banner.dart';
 import '../global/global.dart';
 import 'package:intl/intl.dart';
+
+import '../widgets/shipment_location_design.dart';
 
 class OrderDetailsScreen extends StatefulWidget {
   final String? orderID;
@@ -92,6 +95,24 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                 fontFamily: "Poppins"),
                           ),
                         ),
+                        FutureBuilder<DocumentSnapshot>(
+                          future: FirebaseFirestore.instance
+                              .collection("users")
+                              .doc(sharedPreferences!.getString("uid"))
+                              .collection("userLocation")
+                              .doc(dataMap["locationID"])
+                              .get(),
+                          builder: (c, snapshot) {
+                            return snapshot.hasData
+                                ? ShipmentLocationDesign(
+                                    model: Location.fromJson(snapshot.data!
+                                        .data()! as Map<String, dynamic>),
+                                  )
+                                : Center(
+                                    child: circularProgress(),
+                                  );
+                          },
+                        )
                       ],
                     ),
                   )
