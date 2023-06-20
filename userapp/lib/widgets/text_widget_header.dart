@@ -12,20 +12,23 @@ class TextWidgetHeader extends SliverPersistentHeaderDelegate {
   ) {
     return InkWell(
       child: Container(
-        decoration: const BoxDecoration(color: Color(0xff1E1E1E)),
-        height: 80.0,
+        decoration: const BoxDecoration(color: Color(0xff272727)),
+        height: 90.0,
         width: MediaQuery.of(context).size.width,
         alignment: Alignment.center,
         child: InkWell(
-          child: Text(
-            title!,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: "Poppins",
-              fontSize: 20,
-              letterSpacing: 2,
-              color: Colors.red,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10), // Add left padding
+            child: Text(
+              title!,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: "Inter",
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
