@@ -17,41 +17,46 @@ class _SellersDesignWidgetState extends State<SellersDesignWidget> {
     return InkWell(
       onTap: () {
         Navigator.push(
-          context,
-          MaterialPageRoute(builder: (c) => MenusScreen(model: widget.model)),
-        );
+            context,
+            MaterialPageRoute(
+                builder: (c) => MenusScreen(model: widget.model)));
       },
       splashColor: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: AspectRatio(
-                aspectRatio: 1.0,
-                child: Image.network(
-                  widget.model!.sellerAvatarUrl!,
-                  fit: BoxFit.cover,
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          height: 265,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Divider(
+                height: 20,
+                thickness: 3,
+                color: Colors.grey[300],
+              ),
+              Image.network(
+                widget.model!.sellerAvatarUrl!,
+                height: 150.0,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Text(
+                widget.model!.sellerName!,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontFamily: "Roboto",
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            Text(
-              widget.model!.sellerName!,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontFamily: "Roboto",
+              Divider(
+                height: 1,
+                thickness: 3,
+                color: Colors.grey[300],
               ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

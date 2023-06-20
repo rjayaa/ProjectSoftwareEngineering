@@ -7,7 +7,6 @@ import 'package:userapp/widgets/app_bar.dart';
 import 'package:userapp/widgets/items_design.dart';
 
 import '../models/Menus.dart';
-import '../widgets/my_drawer.dart';
 import '../widgets/progress_bar.dart';
 import '../widgets/text_widget_header.dart';
 
@@ -22,7 +21,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: MyAppBar(sellerUID: widget.model!.sellerUID),
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
