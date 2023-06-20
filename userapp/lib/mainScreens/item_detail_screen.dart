@@ -23,6 +23,9 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
     return Scaffold(
       appBar: MyAppBar(sellerUID: widget.model!.sellerUID),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
       body: Container(
         color: Color(0xff272727),
         child: Column(
@@ -35,6 +38,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 fit: BoxFit.cover,
               ),
+<<<<<<< HEAD
 =======
       body: Column(
         children: [
@@ -47,6 +51,8 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               min: 1,
               max: 5,
 >>>>>>> main
+=======
+>>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
             ),
             Padding(
               padding: const EdgeInsets.all(35.0),

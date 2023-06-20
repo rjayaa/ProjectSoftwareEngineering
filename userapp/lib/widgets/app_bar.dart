@@ -74,12 +74,18 @@ class _MyAppBarState extends State<MyAppBar> {
                       return Text(
                         counter.count.toString(),
 <<<<<<< HEAD
+<<<<<<< HEAD
                         style: const TextStyle(
                             fontSize: 12
                         ),
 =======
                         style: const TextStyle(fontSize: 12),
 >>>>>>> main
+=======
+                        style: const TextStyle(
+                            fontSize: 12
+                        ),
+>>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
                       );
                     }),
                   ),

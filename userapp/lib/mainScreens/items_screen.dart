@@ -23,6 +23,9 @@ class _ItemsScreenState extends State<ItemsScreen> {
     return Scaffold(
       appBar: MyAppBar(sellerUID: widget.model!.sellerUID),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
       body: Container(
         color: Color(0xff272727),
         child: CustomScrollView(
@@ -54,6 +57,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                     Items model = Items.fromJson(
                       snapshot.data!.docs[index].data()!
                       as Map<String, dynamic>,
+<<<<<<< HEAD
 =======
       body: CustomScrollView(
         slivers: [
@@ -84,6 +88,8 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         Items model = Items.fromJson(
                           snapshot.data!.docs[index].data()!
                               as Map<String, dynamic>,
+=======
+>>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
                         );
                         return ItemsDesignWidget(
                           model: model,
@@ -91,16 +97,16 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         );
                       },
                       itemCount: snapshot.data!.docs.length,
+<<<<<<< HEAD
 >>>>>>> main
                     );
                     return ItemsDesignWidget(
                       model: model,
                       context: context,
+=======
+>>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
                     );
                   },
-                  itemCount: snapshot.data!.docs.length,
-                );
-              },
             )
           ],
         ),
