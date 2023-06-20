@@ -11,6 +11,7 @@ class MyTextField extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: TextFormField(
         controller: controller,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration.collapsed(
             hintText: hint, hintStyle: const TextStyle(color: Colors.white70)),
         validator: (value) => value!.isEmpty ? "Field can not be empty" : null,
