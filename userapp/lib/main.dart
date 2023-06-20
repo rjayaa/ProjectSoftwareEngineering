@@ -2,10 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:userapp/assistantMethods/cart_item_counter.dart';
-<<<<<<< HEAD
-=======
-import 'package:userapp/assistantMethods/total_amount.dart';
->>>>>>> main
 import 'package:userapp/splashscreen/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'global/global.dart';
@@ -27,10 +23,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (c) => CartItemCounter()),
-<<<<<<< HEAD
-=======
-        ChangeNotifierProvider(create: (c) => TotalAmount()),
->>>>>>> main
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,21 +32,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const MySplashScreen(),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
         routes: {
           '/home': (context) => HomeScreen(),
           '/tes': (context) => Container(),
           // Define other routes here
         },
-<<<<<<< HEAD
-=======
->>>>>>> main
-=======
->>>>>>> 2d5963c78e94ce9cb4ac050e387ea34406958973
       ),
     );
   }
