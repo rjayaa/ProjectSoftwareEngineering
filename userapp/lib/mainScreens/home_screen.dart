@@ -18,12 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final items = [
-    "slider/0.png",
-    "slider/1.png",
-    "slider/2.png",
-  ];
-
   @override
   void initState() {
     super.initState();
