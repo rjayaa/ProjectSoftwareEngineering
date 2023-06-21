@@ -25,7 +25,7 @@ class FoodDeliveringScreen extends StatefulWidget {
 class _FoodDeliveringScreenState extends State<FoodDeliveringScreen> {
   confirmFoodHasBeenDelivered(getorderId, sellerId, purchaserId, purchaserFloor,
       purchaserLocationDetail) {
-    String newRiderTotalEarningAmount =
+    String riderTotalEarningAmount =
         ((double.parse(prevRiderEarnings)) + (double.parse(perDeliveryAmount)))
             .toString();
     FirebaseFirestore.instance
