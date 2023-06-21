@@ -1,3 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:courierapp/global/global.dart';
+import 'package:courierapp/mainScreens/shipment_screen.dart';
 import 'package:courierapp/models/location.dart';
 import 'package:flutter/material.dart';
 import '../splashscreen/splash_screen.dart';
@@ -5,8 +8,36 @@ import '../splashscreen/splash_screen.dart';
 class ShipmentLocationDesign extends StatelessWidget {
   final Location? model;
   final String? orderStatus;
+  final String? orderId;
+  final String? sellerId;
+  final String? orderByUser;
 
-  ShipmentLocationDesign({this.model, this.orderStatus});
+  ShipmentLocationDesign(
+      {this.model,
+      this.orderStatus,
+      this.orderId,
+      this.sellerId,
+      this.orderByUser});
+
+  confirmedFoodShipment(BuildContext context, String getOrderID,
+      String sellerId, String purchaseId) {
+    FirebaseFirestore.instance.collection("orders").doc(getOrderID).update({
+      "riderUID": sharedPreferences!.getString("uid"),
+      "riderName": sharedPreferences!.getString("name"),
+      "status": "picking",
+    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ShipmentScreen(
+                purchaserId: purchaseId,
+                purchaseLocation: model!.floorNumber,
+                purchaseLocationDetail: model!.detailLocation,
+                sellerId: sellerId,
+                getOrderID: getOrderID,
+              )),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,11 +98,8 @@ class ShipmentLocationDesign extends StatelessWidget {
                 child: Center(
                   child: InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MySplashScreen()),
-                      );
+                      confirmedFoodShipment(
+                          context, orderId!, sellerId!, orderByUser!);
                     },
                     child: Container(
                       decoration: BoxDecoration(
