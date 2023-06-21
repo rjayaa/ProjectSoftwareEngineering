@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:courierapp/authentication/auth_screen.dart';
 import 'package:courierapp/global/global.dart';
@@ -80,6 +81,28 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getPerDeliveryPrice();
+    getRiderPreviousEarnings();
+  }
+
+  getRiderPreviousEarnings() {
+    FirebaseFirestore.instance
+        .collection("riders")
+        .doc(sharedPreferences!.getString("uid"))
+        .get()
+        .then((snap) {
+      prevRiderEarnings = snap.data()!["earnings"].toString();
+    });
+  }
+
+  getPerDeliveryPrice() {
+    FirebaseFirestore.instance
+        .collection("perDelivery")
+        .doc("T4kTr4lhnsVBf9eqAnYE")
+        .get()
+        .then((snap) {
+      perDeliveryAmount = snap.data()!["amount"].toString();
+    });
   }
 
   @override

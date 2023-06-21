@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:courierapp/global/global.dart';
-import 'package:courierapp/mainScreens/shipment_screen.dart';
+import 'package:courierapp/mainScreens/food_picking_screen.dart';
 import 'package:courierapp/models/location.dart';
 import 'package:flutter/material.dart';
 import '../splashscreen/splash_screen.dart';
@@ -19,9 +19,9 @@ class ShipmentLocationDesign extends StatelessWidget {
       this.sellerId,
       this.orderByUser});
 
-  confirmedFoodShipment(BuildContext context, String getOrderID,
+  confirmedFoodShipment(BuildContext context, String getOrderId,
       String sellerId, String purchaseId) {
-    FirebaseFirestore.instance.collection("orders").doc(getOrderID).update({
+    FirebaseFirestore.instance.collection("orders").doc(getOrderId).update({
       "riderUID": sharedPreferences!.getString("uid"),
       "riderName": sharedPreferences!.getString("name"),
       "status": "picking",
@@ -29,12 +29,12 @@ class ShipmentLocationDesign extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ShipmentScreen(
+          builder: (context) => FoodPickingScreen(
                 purchaserId: purchaseId,
                 purchaseLocation: model!.floorNumber,
                 purchaseLocationDetail: model!.detailLocation,
                 sellerId: sellerId,
-                getOrderID: getOrderID,
+                getOrderId: getOrderId,
               )),
     );
   }
