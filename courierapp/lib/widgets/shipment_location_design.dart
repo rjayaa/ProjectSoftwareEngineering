@@ -61,7 +61,7 @@ class ShipmentLocationDesign extends StatelessWidget {
               TableRow(
                 children: [
                   const Text(
-                    "Nama",
+                    "Nama :",
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(model!.name!),
@@ -70,7 +70,7 @@ class ShipmentLocationDesign extends StatelessWidget {
               TableRow(
                 children: [
                   const Text(
-                    "No HP.",
+                    "No HP. :",
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(model!.phoneNumber!),
@@ -79,10 +79,19 @@ class ShipmentLocationDesign extends StatelessWidget {
               TableRow(
                 children: [
                   const Text(
-                    "Lantai",
+                    "Lantai : ",
                     style: TextStyle(color: Colors.black),
                   ),
                   Text(model!.floorNumber!),
+                ],
+              ),
+              TableRow(
+                children: [
+                  const Text(
+                    "Detail :",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(model!.detailLocation!),
                 ],
               ),
             ],

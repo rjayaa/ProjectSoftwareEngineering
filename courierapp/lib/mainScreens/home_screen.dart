@@ -79,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getPerDeliveryPrice();
     getRiderPreviousEarnings();
@@ -87,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   getRiderPreviousEarnings() {
     FirebaseFirestore.instance
-        .collection("riders")
+        .collection("couriers")
         .doc(sharedPreferences!.getString("uid"))
         .get()
         .then((snap) {
@@ -137,10 +136,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.assignment,
               0,
             ),
-            makeDashboardItem("Parcels in Progress", Icons.airport_shuttle, 1),
-            makeDashboardItem("Not Yet Delivered", Icons.location_history, 2),
-            makeDashboardItem("History", Icons.done_all, 3),
-            makeDashboardItem("Total Earnings", Icons.monetization_on, 4),
+            // makeDashboardItem("Parcels in Progress", Icons.airport_shuttle, 1),
+            // makeDashboardItem("Not Yet Delivered", Icons.location_history, 2),
+            // makeDashboardItem("History", Icons.done_all, 3),
+            // makeDashboardItem("Total Earnings", Icons.monetization_on, 4),
             makeDashboardItem("Logout", Icons.logout, 5),
           ],
         ),

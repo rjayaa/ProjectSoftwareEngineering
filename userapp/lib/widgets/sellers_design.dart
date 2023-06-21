@@ -28,13 +28,17 @@ class _SellersDesignWidgetState extends State<SellersDesignWidget> {
           width: MediaQuery.of(context).size.width,
           child: Column(
             children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                widget.model!.sellerAvatarUrl!,
-                fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: AspectRatio(
+                  aspectRatio:
+                      1.0, // Mengatur aspek rasio gambar menjadi 1:1 (kotak)
+                  child: Image.network(
+                    widget.model!.sellerAvatarUrl!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
               const SizedBox(
                 height: 15.0,
               ),

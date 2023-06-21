@@ -47,7 +47,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
-                incDecBgColor: Colors.white,
+                incDecBgColor: Color(0xffFC7115),
                 incIconColor: Colors.white,
                 decIconColor: Colors.white,
                 min: 1,

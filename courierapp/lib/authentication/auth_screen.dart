@@ -42,7 +42,7 @@ class _AuthScreenState extends State<AuthScreen> {
           bottom: const TabBar(
             tabs: [
               Tab(
-                icon: Icon(Icons.lock, color: Colors.white),
+                icon: Icon(Icons.lock, color: Colors.black),
                 text: "Login",
               ),
               Tab(

@@ -45,6 +45,24 @@ class ShipmentLocationDesign extends StatelessWidget {
                   ),
                 ],
               ),
+              TableRow(
+                children: [
+                  const Text(
+                    "Lantai : ",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(model!.floorNumber!),
+                ],
+              ),
+              TableRow(
+                children: [
+                  const Text(
+                    "Detail :",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(model!.detailLocation!),
+                ],
+              ),
             ],
           ),
         ),

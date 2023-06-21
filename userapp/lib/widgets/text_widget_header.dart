@@ -18,7 +18,7 @@ class TextWidgetHeader extends SliverPersistentHeaderDelegate {
         alignment: Alignment.center,
         child: InkWell(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10), // Add left padding
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0), // Add left padding
             child: Text(
               title!,
               maxLines: 2,

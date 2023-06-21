@@ -28,26 +28,24 @@ class _FoodDeliveringScreenState extends State<FoodDeliveringScreen> {
     String riderTotalEarningAmount =
         ((double.parse(prevRiderEarnings)) + (double.parse(perDeliveryAmount)))
             .toString();
-    FirebaseFirestore.instance
-        .collection("orders")
-        .doc(widget.getOrderId)
-        .update({
+    FirebaseFirestore.instance.collection("orders").doc(getorderId).update({
       "status": "done",
       "earnings": perDeliveryAmount, // pay per delivery
     }).then((value) {
       FirebaseFirestore.instance
-          .collection("riders")
+          .collection("couriers")
           .doc(sharedPreferences!.getString("uid"))
           .update({
-        "earnings": "", //total earnings rider
+        "earnings": riderTotalEarningAmount, //total earnings amount of rider
       });
     }).then((value) {
       FirebaseFirestore.instance
           .collection("sellers")
           .doc(widget.sellerId)
           .update({
-        "earnings": (double.parse(orderTotalAmount) +
-            (double.parse(prevEarnings))), // total earnings of seller
+        "earnings":
+            (double.parse(orderTotalAmount) + (double.parse(prevEarnings)))
+                .toString(), //total earnings amount of seller
       });
     }).then((value) {
       FirebaseFirestore.instance
@@ -57,14 +55,14 @@ class _FoodDeliveringScreenState extends State<FoodDeliveringScreen> {
           .doc(getorderId)
           .update({
         "status": "done",
-        "riderUID": sharedPreferences!.getString("uid")
+        "riderUID": sharedPreferences!.getString("uid"),
       });
     });
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const MySplashScreen(),
+        builder: (c) => const MySplashScreen(),
       ),
     );
   }
