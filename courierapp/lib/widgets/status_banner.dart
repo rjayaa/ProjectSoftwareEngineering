@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:userapp/mainScreens/home_screen.dart';
+import 'package:courierapp/mainScreens/home_screen.dart';
 
 class StatusBanner extends StatelessWidget {
   final bool? status;
@@ -19,7 +18,7 @@ class StatusBanner extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Color(0xff272727),
       ),
-      height: 80,
+      height: 85,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -34,13 +33,17 @@ class StatusBanner extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            width: 20,
+            width: 30,
           ),
           Text(
             orderStatus == "ended"
                 ? "Food Delivered $message"
                 : "Order Placed $message",
-            style: const TextStyle(color: Colors.white),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontFamily: "Poppins",
+            ),
           ),
           const SizedBox(
             width: 5,
